@@ -1,0 +1,211 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Fields:
+    //   - displayName: string (1-50 chars)
+    //   - photoURL: string (valid URL)
+    //   - lastUsernameChange: timestamp
+    //   - role: string ('user', 'admin')
+    //
+    // Collection: posts
+    // Fields:
+    //   - content: string (required, 1-1000 chars)
+    //   - authorId: string (required, matches auth.uid)
+    //   - createdAt: timestamp (required)
+    //   - likesCount: number (default 0)
+    //   - favoritesCount: number (default 0)
+    //   - repliesCount: number (default 0)
+    //   - score: number (default 0)
+    //
+    // Collection: likes
+    // Document ID: userId_postId
+    //
+    // Collection: favorites
+    // Document ID: userId_postId
+    //
+    // Collection: replies
+    // Fields:
+    //   - postId: string
+    //   - content: string (1-500 chars)
+    //   - authorId: string
+    //   - authorName: string
+    //   - createdAt: timestamp
+    //
+    // Collection: notifications
+    // Fields:
+    //   - userId: string
+    //   - type: string ('mention', 'reply')
+    //   - fromId: string
+    //   - fromName: string
+    //   - postId: string
+    //   - content: string
+    //   - isRead: boolean
+    //   - createdAt: timestamp
+    //
+    // Collection: reports
+    // Fields:
+    //   - targetId: string
+    //   - targetType: string ('post', 'reply')
+    //   - reporterId: string
+    //   - reason: string
+    //   - createdAt: timestamp
+    //
+    // Collection: messages
+    // Fields:
+    //   - senderId: string
+    //   - content: string
+    //   - createdAt: timestamp
+    //   - reportId: string (optional)
+    //
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isNotAnonymous() {
+      return isAuthenticated() && request.auth.token.email != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.authorId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == "ismailbasly19@gmail.com" || 
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+
+    function isNotBanned() {
+      return !exists(/databases/$(database)/documents/users/$(request.auth.uid)) ||
+             (!('banUntil' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data) || 
+              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.banUntil < request.time);
+    }
+
+    function isNotReadOnly() {
+      return !exists(/databases/$(database)/documents/users/$(request.auth.uid)) ||
+             (!('isReadOnly' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data) || 
+              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isReadOnly == false);
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function isValidPost(data) {
+      return data.content is string && data.content.size() > 0 && data.content.size() <= 1000 &&
+             data.authorId == request.auth.uid &&
+             data.likesCount is number &&
+             data.favoritesCount is number &&
+             data.repliesCount is number &&
+             data.score is number;
+    }
+
+    function isValidReply(data) {
+      return data.content is string && data.content.size() > 0 && data.content.size() <= 500 &&
+             data.authorId == request.auth.uid &&
+             data.authorName is string &&
+             data.postId is string;
+    }
+
+    function isValidNotification(data) {
+      return data.userId is string &&
+             data.type in ['mention', 'reply'] &&
+             data.fromId == request.auth.uid &&
+             data.fromName is string &&
+             data.postId is string &&
+             data.isRead == false;
+    }
+
+    function isValidReport(data) {
+      return data.targetId is string &&
+             data.targetType in ['post', 'reply'] &&
+             data.targetContent is string &&
+             data.reporterId == request.auth.uid &&
+             data.reporterName is string &&
+             data.reason is string && data.reason.size() > 0 && data.reason.size() <= 1000;
+    }
+
+    function isValidMessage(data) {
+      return data.senderId == request.auth.uid &&
+             data.content is string && data.content.size() > 0 && data.content.size() <= 1000;
+    }
+
+    // Rules
+    match /users/{userId} {
+      allow read: if isAdmin() || isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if (isOwner(userId) && 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'lastUsernameChange', 'strikes', 'banCount', 'banUntil', 'hasSeenPrivacyWarning']) &&
+        (
+          // Only allow incrementing strikes OR resetting them if banCount increments
+          (request.resource.data.get('strikes', 0) == resource.data.get('strikes', 0) + 1) ||
+          (request.resource.data.get('strikes', 0) == 0 && request.resource.data.get('banCount', 0) == resource.data.get('banCount', 0) + 1) ||
+          // Allow updating other fields normally
+          (request.resource.data.get('strikes', 0) == resource.data.get('strikes', 0) && request.resource.data.get('banCount', 0) == resource.data.get('banCount', 0))
+        )
+      ) || isAdmin();
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+      allow create: if isNotAnonymous() && isNotBanned() && isNotReadOnly() && isValidPost(request.resource.data);
+      allow update: if isAuthenticated() && (
+        (isDocOwner() && isNotBanned() && isNotReadOnly() && isValidPost(request.resource.data)) ||
+        (isNotAnonymous() && isNotBanned() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likesCount', 'favoritesCount', 'repliesCount', 'score'])) ||
+        isAdmin()
+      );
+      allow delete: if isDocOwner() || isAdmin();
+    }
+
+    match /likes/{likeId} {
+      allow read: if true;
+      allow create, update: if isNotAnonymous() && (isAdmin() || (isNotBanned() && isNotReadOnly())) && request.resource.data.userId == request.auth.uid;
+      allow delete: if isNotAnonymous() && (isAdmin() || resource.data.userId == request.auth.uid);
+    }
+
+    match /favorites/{favId} {
+      allow read: if isAuthenticated() && (isAdmin() || resource == null || resource.data.userId == request.auth.uid);
+      allow create, update: if isNotAnonymous() && (isAdmin() || (isNotBanned() && isNotReadOnly())) && request.resource.data.userId == request.auth.uid;
+      allow delete: if isNotAnonymous() && (isAdmin() || resource.data.userId == request.auth.uid);
+    }
+
+    match /replies/{replyId} {
+      allow read: if true;
+      allow create: if isNotAnonymous() && isNotBanned() && isNotReadOnly() && isValidReply(request.resource.data);
+      allow delete: if (isAuthenticated() && resource.data.authorId == request.auth.uid) || isAdmin();
+    }
+
+    match /reports/{reportId} {
+      allow create: if isAuthenticated() && isValidReport(request.resource.data);
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.reporterId == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow create: if isAuthenticated() && isValidMessage(request.resource.data);
+      allow read: if isAdmin() || isOwner(resource.data.senderId) || isOwner(resource.data.reportOwnerId);
+      allow update, delete: if isAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && isValidNotification(request.resource.data);
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid && 
+                    request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isRead', 'isFavorited']);
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

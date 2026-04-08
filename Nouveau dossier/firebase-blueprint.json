@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "Post": {
+      "title": "Post",
+      "description": "An anonymous publication.",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string", "description": "The text content of the post." },
+        "authorId": { "type": "string", "description": "The UID of the anonymous author." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the post was created." },
+        "likesCount": { "type": "number", "description": "Number of likes." },
+        "favoritesCount": { "type": "number", "description": "Number of favorites." },
+        "repliesCount": { "type": "number", "description": "Number of replies." },
+        "score": { "type": "number", "description": "Ranking score based on activity." },
+        "isPinned": { "type": "boolean", "description": "Whether the post is pinned by admin." }
+      },
+      "required": ["content", "authorId", "createdAt"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "A report on a post or reply.",
+      "type": "object",
+      "properties": {
+        "targetId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["post", "reply"] },
+        "targetContent": { "type": "string", "description": "Content of the reported item for context." },
+        "reporterId": { "type": "string" },
+        "reporterName": { "type": "string" },
+        "reason": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["targetId", "targetType", "reporterId", "reason", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A message from a user to the admin.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "reportId": { "type": "string", "description": "Optional reference to a report." }
+      },
+      "required": ["senderId", "content", "createdAt"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A like on a post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["postId", "userId"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "A favorite on a post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["postId", "userId"]
+    },
+    "Reply": {
+      "title": "Reply",
+      "description": "A reply to a post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "content": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["postId", "content", "authorId", "authorName", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A notification for a user (e.g., mention).",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user to notify." },
+        "type": { "type": "string", "enum": ["mention", "reply"] },
+        "fromId": { "type": "string", "description": "Who triggered the notification." },
+        "fromName": { "type": "string" },
+        "postId": { "type": "string" },
+        "content": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "fromId", "fromName", "postId", "isRead", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Public profile of a user.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "lastUsernameChange": { "type": "string", "format": "date-time" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "banUntil": { "type": "string", "format": "date-time" },
+        "isReadOnly": { "type": "boolean" },
+        "strikes": { "type": "number", "description": "Number of profanity strikes." },
+        "banCount": { "type": "number", "description": "Number of times the user has been banned." }
+      }
+    }
+  },
+  "firestore": {
+    "users": { "schema": "UserProfile", "description": "Collection of user profiles." },
+    "posts": { "schema": "Post", "description": "Collection of anonymous posts." },
+    "likes": { "schema": "Like", "description": "Collection of likes to track user activity." },
+    "favorites": { "schema": "Favorite", "description": "Collection of favorites." },
+    "replies": { "schema": "Reply", "description": "Collection of replies to posts." },
+    "reports": { "schema": "Report", "description": "Collection of reports." },
+    "messages": { "schema": "Message", "description": "Collection of user-admin messages." },
+    "notifications": { "schema": "Notification", "description": "Collection of user notifications." }
+  }
+}
