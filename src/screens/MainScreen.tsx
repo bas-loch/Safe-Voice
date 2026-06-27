@@ -77,7 +77,6 @@ export const MainScreen: React.FC = () => {
     pendingOfflineGains,
     pendingDailyReward,
     mysteryBoxLastOpened,
-    calculateAndSetOfflineGains,
     applyOfflineGains,
     dismissOfflineGains,
     dismissDailyReward,
@@ -165,9 +164,9 @@ export const MainScreen: React.FC = () => {
     return () => clearInterval(interval);
   }, [luckyCustomer]);
 
-  // Refresh BottomBar badge every 30s
+  // Refresh BottomBar badge toutes les 60s (cooldown = 15min)
   useEffect(() => {
-    const interval = setInterval(() => forceUpdate((v) => v + 1), 30000);
+    const interval = setInterval(() => forceUpdate((v) => v + 1), 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -188,10 +187,11 @@ export const MainScreen: React.FC = () => {
 
   const handleOfflineClose = useCallback(() => {
     setShowOfflineGains(false);
+    dismissOfflineGains(); // nettoie pendingOfflineGains dans le store
     if (pendingDailyReward) {
       setTimeout(() => setShowDailyReward(true), 300);
     }
-  }, [pendingDailyReward]);
+  }, [pendingDailyReward, dismissOfflineGains]);
 
   const renderContent = () => {
     if (activeTab === 'upgrades') return <UpgradesScreen />;

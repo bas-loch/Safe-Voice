@@ -101,6 +101,7 @@ export const CYCLE_TIME_REDUCTION_PER_LEVEL = 0.04;
 export const COINS_MULTIPLIER_PER_LEVEL = 1.12;
 
 export const OFFLINE_CAP_MS = 2 * 60 * 60 * 1000;
+export const OFFLINE_EFFICIENCY = 0.25; // 25% des gains hors-ligne (anti-farming)
 export const MYSTERY_BOX_COOLDOWN_MS = 15 * 60 * 1000;
 export const RUSH_HOUR_DURATION_MS = 60000;
 export const RUSH_HOUR_MULTIPLIER = 2;

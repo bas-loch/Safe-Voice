@@ -10,6 +10,7 @@ import {
   DAILY_REWARD_AMOUNTS,
   DAILY_REWARD_GEMS,
   OFFLINE_CAP_MS,
+  OFFLINE_EFFICIENCY,
   MYSTERY_BOX_COOLDOWN_MS,
 } from '../constants/balance';
 import { getTodayString, isNewDay } from '../utils/time';
@@ -62,6 +63,7 @@ interface GameStore {
   hireManager: (stationId: string) => boolean;
   claimDailyReward: () => { coins: number; gems: number; day: number } | null;
   openMysteryBox: () => MysteryReward | null;
+  forceOpenMysteryBox: () => MysteryReward;
   activateRushHour: () => void;
   endRushHour: () => void;
   calculateAndSetOfflineGains: () => void;
@@ -240,6 +242,18 @@ export const useGameStore = create<GameStore>()(
 
       endRushHour: () => set({ rushHour: { active: false, endsAt: 0 } }),
 
+      forceOpenMysteryBox: () => {
+        const now = Date.now();
+        const reward = rollMysteryReward();
+        set((s) => ({
+          mysteryBoxLastOpened: now,
+          coins: s.coins + reward.coins,
+          gems: s.gems + reward.gems,
+          totalCoinsEarned: s.totalCoinsEarned + reward.coins,
+        }));
+        return reward;
+      },
+
       calculateAndSetOfflineGains: () => {
         const { lastSessionTime, stations } = get();
         const now = Date.now();
@@ -293,9 +307,24 @@ export const useGameStore = create<GameStore>()(
       }),
       onRehydrateStorage: () => (hydratedState) => {
         if (!hydratedState) return;
-        // Runs asynchronously after AsyncStorage loads — useGameStore is defined by now
         const now = Date.now();
-        const elapsed = Math.min(now - hydratedState.lastSessionTime, OFFLINE_CAP_MS);
+
+        // Anti-cheat: validate saved timestamps
+        const rawElapsed = now - hydratedState.lastSessionTime;
+        const elapsed = rawElapsed < 0
+          ? 0 // horloge reculée — ignorer
+          : Math.min(rawElapsed, OFFLINE_CAP_MS);
+
+        // Anti-cheat: mystery box timestamp dans le futur → reset
+        const mysteryBoxLastOpened =
+          hydratedState.mysteryBoxLastOpened > now ? 0 : hydratedState.mysteryBoxLastOpened;
+
+        // Anti-cheat: rush hour expiré → désactiver
+        const rushHour =
+          hydratedState.rushHour.active && hydratedState.rushHour.endsAt > now
+            ? hydratedState.rushHour
+            : { active: false, endsAt: 0 };
+
         const pendingDailyReward = isNewDay(hydratedState.dailyReward?.lastClaim ?? null);
 
         if (elapsed >= 10000) {
@@ -309,13 +338,22 @@ export const useGameStore = create<GameStore>()(
             const coinsPerCycle = getCoinsPerCycle(config, station.level, station.hasManager);
             totalCoins += cycles * coinsPerCycle;
           });
+          // 25% d'efficacité hors-ligne
+          const cappedCoins = Math.floor(totalCoins * OFFLINE_EFFICIENCY);
           useGameStore.setState({
-            pendingOfflineGains: { coins: totalCoins, timeAway: elapsed },
+            pendingOfflineGains: { coins: cappedCoins, timeAway: elapsed },
             lastSessionTime: now,
+            mysteryBoxLastOpened,
+            rushHour,
             pendingDailyReward,
           });
         } else {
-          useGameStore.setState({ lastSessionTime: now, pendingDailyReward });
+          useGameStore.setState({
+            lastSessionTime: now,
+            mysteryBoxLastOpened,
+            rushHour,
+            pendingDailyReward,
+          });
         }
       },
     }

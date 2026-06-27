@@ -183,6 +183,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 104,
     overflow: 'visible',
+    borderWidth: 1,
+    borderColor: colors.border.subtle,
   },
   cardLocked: {
     opacity: 0.72,

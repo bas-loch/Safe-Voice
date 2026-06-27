@@ -6,7 +6,6 @@ import Animated, {
   withTiming,
   withSequence,
   Easing,
-  runOnJS,
 } from 'react-native-reanimated';
 import { colors, typography } from '../../theme/tokens';
 import { formatNumber } from '../../utils/formatNumber';
@@ -55,7 +54,11 @@ export const FloatingNumber: React.FC<Props> = ({ amount, x, y, onDone }) => {
   }));
 
   return (
-    <Animated.View style={[styles.container, { left: x - 30, top: y - 10 }, anim]}>
+    // pointerEvents="none" sur la View (prop RN, pas dans style)
+    <Animated.View
+      pointerEvents="none"
+      style={[styles.container, { left: x - 30, top: y - 10 }, anim]}
+    >
       <Text style={styles.text}>+{formatNumber(amount)} 🪙</Text>
     </Animated.View>
   );
@@ -65,8 +68,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     zIndex: 999,
-    pointerEvents: 'none',
-  } as any,
+  },
   text: {
     ...typography.h2,
     color: colors.coin.dark,

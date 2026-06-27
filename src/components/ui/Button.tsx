@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { Pressable } from 'react-native';
 import { colors, typography, radius, spacing } from '../../theme/tokens';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'premium' | 'ghost' | 'disabled';
@@ -65,24 +66,29 @@ export const Button: React.FC<ButtonProps> = ({
 
   const scale = useSharedValue(1);
   const translateY = useSharedValue(0);
-  const borderBotW = useSharedValue(has3D ? 4 : 0);
+  const borderBotH = useSharedValue(has3D ? 4 : 0);
 
-  const animStyle = useAnimatedStyle(() => ({
+  const outerAnim = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }, { translateY: translateY.value }],
+  }));
+
+  // Separate animated style for the 3D bottom border "shadow layer"
+  const shadowAnim = useAnimatedStyle(() => ({
+    height: borderBotH.value,
   }));
 
   const handlePressIn = useCallback(() => {
     if (isDisabled) return;
     scale.value = withTiming(0.97, { duration: 80 });
-    translateY.value = withTiming(3, { duration: 80 });
-    borderBotW.value = withTiming(1, { duration: 80 });
+    translateY.value = withTiming(2, { duration: 80 });
+    borderBotH.value = withTiming(1, { duration: 80 });
   }, [isDisabled]);
 
   const handlePressOut = useCallback(() => {
     if (isDisabled) return;
     scale.value = withTiming(1, { duration: 120 });
     translateY.value = withTiming(0, { duration: 120 });
-    borderBotW.value = withTiming(has3D ? 4 : 0, { duration: 120 });
+    borderBotH.value = withTiming(has3D ? 4 : 0, { duration: 120 });
   }, [isDisabled, has3D]);
 
   const height = isSmall ? 40 : 52;
@@ -90,10 +96,10 @@ export const Button: React.FC<ButtonProps> = ({
   const fontSize = isSmall ? 14 : 16;
 
   return (
-    <Animated.View style={[animStyle, style]}>
-      <TouchableOpacity
-        activeOpacity={isDisabled ? 1 : 0.95}
-        onPress={isDisabled ? undefined : onPress}
+    <Animated.View style={[outerAnim, style]}>
+      <Pressable
+        disabled={isDisabled}
+        onPress={onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         style={[
@@ -103,10 +109,9 @@ export const Button: React.FC<ButtonProps> = ({
             borderRadius: radius.md,
             height,
             paddingHorizontal: paddingH,
-            borderBottomWidth: has3D ? 4 : effectiveVariant === 'ghost' ? 1.5 : 0,
-            borderBottomColor: v.border,
             borderWidth: effectiveVariant === 'ghost' ? 1.5 : 0,
             borderColor: effectiveVariant === 'ghost' ? v.border : undefined,
+            overflow: 'hidden',
           },
         ]}
       >
@@ -119,7 +124,17 @@ export const Button: React.FC<ButtonProps> = ({
         >
           {label}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
+      {/* Animated 3D bottom shadow */}
+      {has3D && (
+        <Animated.View
+          style={[
+            styles.shadow3D,
+            { backgroundColor: v.border, borderRadius: radius.md },
+            shadowAnim,
+          ]}
+        />
+      )}
     </Animated.View>
   );
 };
@@ -132,5 +147,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: spacing.sm,
+  },
+  shadow3D: {
+    width: '100%',
+    marginTop: 1,
   },
 });

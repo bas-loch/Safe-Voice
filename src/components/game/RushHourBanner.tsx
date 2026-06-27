@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -13,7 +13,6 @@ import Svg, { Circle } from 'react-native-svg';
 import { colors, typography, spacing, radius } from '../../theme/tokens';
 import { RUSH_HOUR_DURATION_MS } from '../../constants/balance';
 
-const { width: SW } = Dimensions.get('window');
 const CIRCLE_R = 18;
 const CIRCUMFERENCE = 2 * Math.PI * CIRCLE_R;
 
@@ -25,7 +24,7 @@ interface Props {
 export const RushHourBanner: React.FC<Props> = ({ visible, endsAt }) => {
   const translateY = useSharedValue(-120);
   const pulse = useSharedValue(1);
-  const progress = useSharedValue(1);
+  const [tick, setTick] = useState(0); // force re-render every second
 
   useEffect(() => {
     if (visible) {
@@ -37,9 +36,9 @@ export const RushHourBanner: React.FC<Props> = ({ visible, endsAt }) => {
         ),
         -1
       );
-      const remaining = endsAt - Date.now();
-      progress.value = remaining / RUSH_HOUR_DURATION_MS;
-      progress.value = withTiming(0, { duration: remaining, easing: Easing.linear });
+      // Tick every second to update countdown text + SVG progress
+      const interval = setInterval(() => setTick((v) => v + 1), 1000);
+      return () => clearInterval(interval);
     } else {
       translateY.value = withTiming(-120, { duration: 300 });
       pulse.value = 1;
@@ -51,11 +50,12 @@ export const RushHourBanner: React.FC<Props> = ({ visible, endsAt }) => {
   }));
 
   const remaining = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
-  const dashOffset = CIRCUMFERENCE * (1 - progress.value);
+  const progressRatio = Math.max(0, Math.min(1, (endsAt - Date.now()) / RUSH_HOUR_DURATION_MS));
+  const strokeDashoffset = CIRCUMFERENCE * (1 - progressRatio);
 
   return (
     <Animated.View style={[styles.banner, bannerAnim]} pointerEvents="none">
-      <Text style={[typography.label, styles.label]}>⚡ RUSH HOUR · x2</Text>
+      <Text style={[typography.label, styles.label]}>⚡ RUSH HOUR · ×2</Text>
       <View style={styles.timerWrap}>
         <Svg width={44} height={44} viewBox="0 0 44 44">
           <Circle
@@ -74,7 +74,7 @@ export const RushHourBanner: React.FC<Props> = ({ visible, endsAt }) => {
             strokeWidth={3}
             fill="transparent"
             strokeDasharray={CIRCUMFERENCE}
-            strokeDashoffset={CIRCUMFERENCE - CIRCUMFERENCE * ((endsAt - Date.now()) / RUSH_HOUR_DURATION_MS)}
+            strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
             transform="rotate(-90 22 22)"
           />

@@ -12,7 +12,7 @@ import Animated, {
 import Svg, { Rect, Path, Circle, G } from 'react-native-svg';
 import { colors, typography, spacing, radius, shadows } from '../../theme/tokens';
 import { Button } from '../ui/Button';
-import { useGameStore, MysteryReward } from '../../store/gameStore';
+import { useGameStore, MysteryReward, Rarity } from '../../store/gameStore';
 import { formatNumber } from '../../utils/formatNumber';
 import { AdService } from '../../services/AdService';
 
@@ -69,7 +69,7 @@ export const MysteryBoxModal: React.FC<Props> = ({
   isCooldown = false,
   cooldownRemaining = 0,
 }) => {
-  const { openMysteryBox } = useGameStore();
+  const { openMysteryBox, forceOpenMysteryBox } = useGameStore();
   const [phase, setPhase] = useState<'idle' | 'shaking' | 'burst' | 'reveal'>('idle');
   const [reward, setReward] = useState<MysteryReward | null>(null);
   const [particles, setParticles] = useState<{ id: string; color: string; tx: number; ty: number }[]>([]);
@@ -196,13 +196,18 @@ export const MysteryBoxModal: React.FC<Props> = ({
                 onPress={async () => {
                   const ok = await AdService.showRewardedAd();
                   if (ok) {
-                    // Force bypass cooldown
-                    const r = openMysteryBox();
-                    if (r) {
-                      setReward(r);
-                      setPhase('reveal');
-                      rewardOpacity.value = withTiming(1, { duration: 300 });
-                      rewardY.value = withSpring(0, { damping: 14 });
+                    // Bypass cooldown via pub — utilise forceOpenMysteryBox
+                    const r = forceOpenMysteryBox();
+                    setReward(r);
+                    setPhase('reveal');
+                    rewardOpacity.value = withTiming(1, { duration: 300 });
+                    rewardY.value = withSpring(0, { damping: 14 });
+                    if (r.rarity === 'legendary') {
+                      legendaryGlow.value = withSequence(
+                        withTiming(1, { duration: 400 }),
+                        withTiming(0.4, { duration: 400 }),
+                        withTiming(1, { duration: 400 })
+                      );
                     }
                   }
                 }}
