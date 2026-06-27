@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "La Medina",
+    "slug": "TasteOfTunisia",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FBF5EA"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.tasteoftunisia.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FBF5EA"
+      },
+      "package": "com.tasteoftunisia.app"
+    },
+    "plugins": [
+      "expo-splash-screen"
+    ]
+  }
+}
