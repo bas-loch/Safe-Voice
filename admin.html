@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin réservations — Dar Beldi</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#C4913A">
+<link rel="stylesheet" href="/_assets/index.byhfsaaz.css">
+<link rel="stylesheet" href="/_assets/admin.css">
+</head>
+<body class="admin-body">
+
+<div id="login-view" class="admin-login-wrap">
+  <form id="login-form" class="admin-card admin-login-card">
+    <h1 class="font-serif admin-title">Dar Beldi</h1>
+    <p class="admin-subtitle">Espace réservations</p>
+    <div class="admin-field">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" name="email" autocomplete="username" required>
+    </div>
+    <div class="admin-field">
+      <label for="login-password">Mot de passe</label>
+      <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+    </div>
+    <p id="login-error" class="admin-error" role="alert" aria-live="polite"></p>
+    <button type="submit" id="login-btn" class="btn-primary admin-btn-full">Se connecter</button>
+  </form>
+</div>
+
+<div id="dashboard-view" class="admin-dashboard" hidden>
+  <header class="admin-header">
+    <h1 class="font-serif admin-title">Réservations — Dar Beldi</h1>
+    <button id="logout-btn" class="admin-btn-ghost">Se déconnecter</button>
+  </header>
+
+  <section class="admin-stats" aria-label="Statistiques">
+    <div class="admin-card admin-stat">
+      <span class="admin-stat-value" id="stat-total">—</span>
+      <span class="admin-stat-label">Réservations au total</span>
+    </div>
+    <div class="admin-card admin-stat">
+      <span class="admin-stat-value" id="stat-month">—</span>
+      <span class="admin-stat-label">Ce mois-ci</span>
+    </div>
+    <div class="admin-card admin-stat">
+      <span class="admin-stat-value" id="stat-nights">—</span>
+      <span class="admin-stat-label">Nuits demandées (total)</span>
+    </div>
+  </section>
+
+  <section class="admin-list-section">
+    <p id="list-empty" class="admin-empty" hidden>Aucune réservation pour le moment.</p>
+    <p id="list-loading" class="admin-empty">Chargement…</p>
+    <div id="reservations-list" class="admin-list"></div>
+  </section>
+</div>
+
+<script type="module">
+import { firebaseConfig, FIREBASE_SDK_VERSION } from './_assets/firebase-config.js';
+
+const loginView     = document.getElementById('login-view');
+const dashboardView = document.getElementById('dashboard-view');
+const loginForm     = document.getElementById('login-form');
+const loginError    = document.getElementById('login-error');
+const loginBtn      = document.getElementById('login-btn');
+const logoutBtn     = document.getElementById('logout-btn');
+
+const listEl    = document.getElementById('reservations-list');
+const emptyEl   = document.getElementById('list-empty');
+const loadingEl = document.getElementById('list-loading');
+const statTotal  = document.getElementById('stat-total');
+const statMonth  = document.getElementById('stat-month');
+const statNights = document.getElementById('stat-nights');
+
+const ROOM_LABELS = { jasmin: 'Suite Jasmin', rose: 'Rose des Sables', grenade: 'Grenadier', orangers: 'Suite Famille' };
+const STATUS_LABELS = { en_attente: 'En attente', confirmee: 'Confirmée', annulee: 'Annulée' };
+
+if (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'VOTRE_FIREBASE_API_KEY') {
+  loginError.textContent = "Firebase n'est pas encore configuré (voir _assets/firebase-config.js).";
+  loginBtn.disabled = true;
+} else {
+  init();
+}
+
+async function init() {
+  const { initializeApp, getApps } = await import(`https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-app.js`);
+  const {
+    getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged,
+  } = await import(`https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-auth.js`);
+  const {
+    getDatabase, ref, onValue, update, query, orderByChild,
+  } = await import(`https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-database.js`);
+
+  const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getDatabase(app);
+
+  let unsubscribeReservations = null;
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginView.hidden = true;
+      dashboardView.hidden = false;
+      watchReservations();
+    } else {
+      dashboardView.hidden = true;
+      loginView.hidden = false;
+      if (unsubscribeReservations) { unsubscribeReservations(); unsubscribeReservations = null; }
+    }
+  });
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginError.textContent = '';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Connexion…';
+    try {
+      await signInWithEmailAndPassword(auth, loginForm.email.value.trim(), loginForm.password.value);
+    } catch (err) {
+      loginError.textContent = "Email ou mot de passe incorrect.";
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Se connecter';
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => signOut(auth));
+
+  function watchReservations() {
+    const reservationsQuery = query(ref(db, 'reservations'), orderByChild('createdAt'));
+    unsubscribeReservations = onValue(reservationsQuery, (snapshot) => {
+      const items = [];
+      snapshot.forEach((child) => {
+        items.push({ id: child.key, ...child.val() });
+      });
+      items.reverse(); // plus récentes en haut
+      renderStats(items);
+      renderList(items);
+    });
+
+    // Actions confirmer / annuler
+    listEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const { action, id } = btn.dataset;
+      const status = action === 'confirm' ? 'confirmee' : 'annulee';
+      update(ref(db, `reservations/${id}`), { status });
+    });
+  }
+
+  function nightsOf(r) {
+    if (!r.dateArrivee || !r.dateDepart) return 0;
+    const n = Math.round((new Date(r.dateDepart) - new Date(r.dateArrivee)) / 86400000);
+    return n > 0 ? n : 0;
+  }
+
+  function renderStats(items) {
+    const now = new Date();
+    const thisMonth = items.filter((r) => {
+      if (!r.createdAt) return false;
+      const d = new Date(r.createdAt);
+      return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+    });
+    const totalNights = items.reduce((sum, r) => sum + nightsOf(r), 0);
+
+    statTotal.textContent  = items.length;
+    statMonth.textContent  = thisMonth.length;
+    statNights.textContent = totalNights;
+  }
+
+  function renderList(items) {
+    loadingEl.hidden = true;
+    emptyEl.hidden = items.length !== 0;
+    listEl.innerHTML = items.map(renderCard).join('');
+  }
+
+  function renderCard(r) {
+    const status = r.status || 'en_attente';
+    const roomLabel = ROOM_LABELS[r.chambre] || r.chambre || '—';
+    const nights = nightsOf(r);
+    const created = r.createdAt ? new Date(r.createdAt).toLocaleString('fr-FR') : '—';
+
+    return `
+      <article class="admin-card reservation-card">
+        <div class="reservation-main">
+          <div class="reservation-top">
+            <h2 class="reservation-name">${escapeHtml(r.nom || 'Sans nom')}</h2>
+            <span class="status-badge status-${status}">${STATUS_LABELS[status] || status}</span>
+          </div>
+          <p class="reservation-detail">📞 ${escapeHtml(r.telephone || '—')}</p>
+          <p class="reservation-detail">📅 ${escapeHtml(r.dateArrivee || '?')} → ${escapeHtml(r.dateDepart || '?')} (${nights} nuit${nights > 1 ? 's' : ''})</p>
+          <p class="reservation-detail">🛏 ${escapeHtml(roomLabel)} · 👥 ${escapeHtml(String(r.personnes || '—'))}</p>
+          ${r.message ? `<p class="reservation-message">💬 ${escapeHtml(r.message)}</p>` : ''}
+          <p class="reservation-created">Reçue le ${created}</p>
+        </div>
+        <div class="reservation-actions">
+          <button type="button" class="admin-btn-confirm" data-action="confirm" data-id="${r.id}" ${status === 'confirmee' ? 'disabled' : ''}>Confirmer</button>
+          <button type="button" class="admin-btn-cancel" data-action="cancel" data-id="${r.id}" ${status === 'annulee' ? 'disabled' : ''}>Annuler</button>
+        </div>
+      </article>
+    `;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+}
+</script>
+</body>
+</html>

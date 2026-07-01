@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "reservations": {
+      ".read": "auth != null",
+      ".indexOn": ["createdAt", "status"],
+      "$reservationId": {
+        ".write": "auth != null || !data.exists()"
+      }
+    }
+  }
+}

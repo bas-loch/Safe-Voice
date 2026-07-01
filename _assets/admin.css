@@ -1,0 +1,235 @@
+/* Styles de la page /admin — réutilise les variables de couleur du site (index.byhfsaaz.css) */
+
+.admin-body {
+  background: var(--c-cream);
+  color: var(--c-earth);
+  font-family: Inter, system-ui, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.admin-card {
+  background: var(--c-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--c-earth);
+  margin: 0 0 .25rem;
+}
+
+.admin-subtitle {
+  font-size: .875rem;
+  color: var(--c-earth);
+  opacity: .6;
+  margin: 0 0 1.5rem;
+}
+
+/* ── Login ─────────────────────────────────────────── */
+.admin-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.admin-field {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.admin-field label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 500;
+  margin-bottom: .35rem;
+  color: var(--c-earth);
+  opacity: .75;
+}
+
+.admin-field input {
+  width: 100%;
+  padding: .65rem .85rem;
+  border-radius: .5rem;
+  border: 1px solid var(--c-input-border);
+  background: var(--c-input);
+  font-size: .95rem;
+  color: var(--c-earth);
+  box-sizing: border-box;
+}
+
+.admin-field input:focus {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 1px;
+}
+
+.admin-error {
+  color: #B3261E;
+  font-size: .85rem;
+  min-height: 1.2em;
+  margin: .25rem 0 1rem;
+}
+
+.admin-btn-full {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+}
+
+/* ── Dashboard ─────────────────────────────────────── */
+.admin-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--c-input-border);
+  color: var(--c-earth);
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.admin-btn-ghost:hover { background: var(--c-sand); }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-stat {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+
+.admin-stat-value {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.admin-stat-label {
+  font-size: .8rem;
+  opacity: .65;
+}
+
+.admin-empty {
+  text-align: center;
+  opacity: .6;
+  padding: 2rem 0;
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reservation-card {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reservation-main { flex: 1 1 260px; }
+
+.reservation-top {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-bottom: .4rem;
+}
+
+.reservation-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.reservation-detail {
+  font-size: .875rem;
+  margin: .2rem 0;
+  opacity: .85;
+}
+
+.reservation-message {
+  font-size: .85rem;
+  font-style: italic;
+  opacity: .75;
+  margin: .5rem 0 0;
+}
+
+.reservation-created {
+  font-size: .75rem;
+  opacity: .5;
+  margin: .5rem 0 0;
+}
+
+.status-badge {
+  font-size: .7rem;
+  font-weight: 600;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.status-en_attente { background: var(--c-sand); color: var(--c-p-dark); }
+.status-confirmee  { background: rgba(107,124,59,.15); color: var(--c-secondary); }
+.status-annulee    { background: rgba(179,38,30,.12); color: #B3261E; }
+
+.reservation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  flex: 0 0 auto;
+}
+
+.admin-btn-confirm, .admin-btn-cancel {
+  border: none;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-btn-confirm { background: var(--c-secondary); color: #fff; }
+.admin-btn-cancel  { background: transparent; color: #B3261E; border: 1px solid rgba(179,38,30,.35); }
+
+.admin-btn-confirm:disabled, .admin-btn-cancel:disabled {
+  opacity: .4;
+  cursor: default;
+}
