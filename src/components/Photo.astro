@@ -1,6 +1,7 @@
 ---
 import fs from "node:fs";
 import path from "node:path";
+import { TEMP_ILLUSTRATIONS } from "../data/tempIllustrations";
 
 export interface Props {
   /** Nom de fichier sans extension, ex: "hero-terrasse" — voir IMAGES-A-FOURNIR.md */
@@ -20,12 +21,32 @@ const imagesDir = path.join(process.cwd(), "public", "images");
 const hasWebp = fs.existsSync(path.join(imagesDir, `${name}.webp`));
 const hasJpg = fs.existsSync(path.join(imagesDir, `${name}.jpg`));
 const hasAny = hasWebp || hasJpg;
+const isTemp = hasAny && TEMP_ILLUSTRATIONS.has(name);
 
 const ratio = width / height;
 ---
 
 {
-  hasAny ? (
+  isTemp ? (
+    <div class={`relative overflow-hidden ${className}`} style={`aspect-ratio: ${ratio};`}>
+      <picture>
+        {hasWebp && <source srcset={`/images/${name}.webp`} type="image/webp" />}
+        <img
+          src={hasJpg ? `/images/${name}.jpg` : `/images/${name}.webp`}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchpriority={priority ? "high" : "auto"}
+          class="w-full h-full object-cover"
+        />
+      </picture>
+      <span class="absolute left-2 top-2 sm:left-3 sm:top-3 rounded-full bg-navy/85 px-2.5 py-1 text-[10px] font-medium leading-none text-cream sm:text-xs">
+        Illustration temporaire
+      </span>
+    </div>
+  ) : hasAny ? (
     <picture>
       {hasWebp && <source srcset={`/images/${name}.webp`} type="image/webp" />}
       <img

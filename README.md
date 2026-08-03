@@ -60,6 +60,8 @@ La carte du restaurant vit dans `src/data/menu.json`, avec les noms/descriptions
 
 Toutes les photos vont dans `public/images/`, au format `.webp` + `.jpg` de secours, avec les noms de fichiers exacts listés dans `IMAGES-A-FOURNIR.md`. Tant qu'une photo manque, le site affiche un bloc gris portant son nom en clair à la place — jamais une autre image.
 
+Les 12 emplacements sont actuellement remplis par des **illustrations vectorielles temporaires** (pas des photos), marquées d'un badge "Illustration temporaire" visible sur le site. Voir `IMAGES-A-FOURNIR.md` pour la marche à suivre pour les remplacer par les vraies photos.
+
 ## Horaires d'ouverture
 
 `src/data/openingHours.ts` contient une structure `schedule` prête à recevoir les horaires jour par jour, actuellement `null` (horaires non confirmés — seule la fermeture à 23h30 l'est). Une fois les horaires obtenus, remplir `schedule` selon le format documenté en commentaire dans le fichier ; le bandeau d'information et le JSON-LD `Restaurant` s'en serviront automatiquement.
