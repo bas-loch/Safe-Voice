@@ -42,12 +42,27 @@ const ratio = width / height;
     </picture>
   ) : (
     <div
-      class={`flex items-center justify-center bg-navy/10 text-navy/70 border border-dashed border-navy/30 text-center p-4 text-sm ${className}`}
+      class={`relative overflow-hidden bg-cream-dark ${className}`}
       style={`aspect-ratio: ${ratio};`}
       role="img"
       aria-label={alt}
     >
-      Photo manquante : {name}.webp / {name}.jpg
+      <div
+        class="absolute inset-0"
+        style="background-image: repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-navy) 7%, transparent) 0 2px, transparent 2px 16px);"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" class="text-navy/20">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <circle cx="9" cy="10" r="1.75" />
+          <path d="m4 17 5-5 4 4 3-3 4 4" />
+        </svg>
+      </div>
+      <span class="absolute left-2 top-2 sm:left-3 sm:top-3 max-w-[calc(100%-1rem)] truncate rounded-full bg-navy/85 px-2.5 py-1 text-[10px] font-medium leading-none text-cream sm:text-xs">
+        Photo à venir · {name}
+      </span>
     </div>
   )
 }
