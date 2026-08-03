@@ -1,0 +1,24 @@
+---
+import { useTranslations, type Lang } from "../../i18n/utils";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="la-maison" class="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
+  <div class="max-w-2xl fade-in-up">
+    <h2 class="font-serif text-3xl sm:text-4xl text-navy mb-8">{t.laMaison.title}</h2>
+    <div class="space-y-5 text-base sm:text-lg text-ink/90">
+      <p>{t.laMaison.p1}</p>
+      <p>{t.laMaison.p2}</p>
+      <p>{t.laMaison.p3}</p>
+    </div>
+    <p class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-navy border border-navy/20 rounded-full px-4 py-2">
+      {t.laMaison.italianStaffNote}
+    </p>
+  </div>
+</section>

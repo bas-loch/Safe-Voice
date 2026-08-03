@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import LegalContent from "../components/LegalContent.astro";
+import { useTranslations } from "../i18n/utils";
+
+const lang = "fr" as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.legal.title}
+  description={t.meta.legal.description}
+  path="/mentions-legales"
+  skipLabel={t.skipToContent}
+>
+  <Header lang={lang} currentPath="/mentions-legales" />
+  <main id="contenu">
+    <LegalContent lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

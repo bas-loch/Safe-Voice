@@ -1,0 +1,27 @@
+---
+import { useTranslations, type Lang } from "../../i18n/utils";
+import { restaurant } from "../../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="avis" class="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28 text-center">
+  <div class="fade-in-up max-w-xl mx-auto">
+    <h2 class="font-serif text-3xl sm:text-4xl text-navy mb-4">{t.avis.title}</h2>
+    <p class="text-5xl sm:text-6xl font-serif text-terracotta mb-2">{restaurant.rating.value.toString().replace(".", ",")}/5</p>
+    <p class="text-ink/80 mb-6">{t.avis.ratingLine}</p>
+    <a
+      href={restaurant.googleReviewsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center rounded-full border border-navy px-6 py-3 min-h-11 text-sm sm:text-base font-medium text-navy hover:bg-navy hover:text-cream transition-colors"
+    >
+      {t.avis.cta}
+    </a>
+  </div>
+</section>

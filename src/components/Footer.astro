@@ -1,0 +1,48 @@
+---
+import { useTranslations, getLocalizedPath, languages, type Lang } from "../i18n/utils";
+import { restaurant } from "../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const entries = Object.entries(languages) as [Lang, string][];
+---
+
+<footer class="bg-navy text-cream mt-24 pb-20 md:pb-0">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12 grid gap-8 sm:grid-cols-3">
+    <div>
+      <p class="font-serif text-xl mb-2">{restaurant.name}</p>
+      <p class="text-cream/70 text-sm">{t.footer.rights}</p>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-cream/60 mb-2">{t.footer.addressTitle}</h2>
+      <address class="not-italic text-sm text-cream/80 leading-relaxed">
+        {restaurant.address.street}<br />
+        {restaurant.address.postalCode} {restaurant.address.city}, {restaurant.address.country}<br />
+        <a href={restaurant.telephoneHref} class="hover:text-terracotta transition-colors">{restaurant.telephone}</a>
+      </address>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-cream/60 mb-2">{t.footer.languagesTitle}</h2>
+      <ul class="flex gap-3 text-sm mb-4">
+        {
+          entries.map(([code, label]) => (
+            <li>
+              <a href={getLocalizedPath(code, "/")} class="text-cream/80 hover:text-terracotta transition-colors">
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={getLocalizedPath(lang, "/mentions-legales")} class="text-sm text-cream/70 underline decoration-cream/30 hover:text-terracotta">
+        {t.footer.legalLink}
+      </a>
+    </div>
+  </div>
+</footer>

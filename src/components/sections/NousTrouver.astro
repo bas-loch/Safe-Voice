@@ -1,0 +1,58 @@
+---
+import { useTranslations, type Lang } from "../../i18n/utils";
+import { restaurant } from "../../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const mapQuery = encodeURIComponent(`${restaurant.plusCode}, ${restaurant.address.city}`);
+const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
+---
+
+<section id="nous-trouver" class="bg-cream-dark py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 grid gap-10 md:grid-cols-2 items-start">
+    <div class="fade-in-up">
+      <h2 class="font-serif text-3xl sm:text-4xl text-navy mb-6">{t.nousTrouver.title}</h2>
+
+      <dl class="space-y-4 text-ink/90 mb-6">
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-navy/60">{t.nousTrouver.addressLabel}</dt>
+          <dd>
+            {restaurant.address.street}<br />
+            {restaurant.address.postalCode} {restaurant.address.city}, {restaurant.address.country}
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold uppercase tracking-wide text-navy/60">{t.nousTrouver.plusCodeLabel}</dt>
+          <dd>{restaurant.plusCode}</dd>
+        </div>
+      </dl>
+
+      <p class="text-ink/80 mb-6">{t.nousTrouver.distanceNote}</p>
+
+      <a
+        href={restaurant.googleMapsDirectionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-full bg-terracotta text-cream px-6 py-3 min-h-11 text-sm sm:text-base font-semibold hover:bg-terracotta-dark transition-colors"
+        aria-label={t.nousTrouver.cta}
+      >
+        {t.nousTrouver.cta}
+      </a>
+    </div>
+
+    <div class="fade-in-up rounded-lg overflow-hidden aspect-[4/3] md:aspect-square">
+      <iframe
+        src={mapEmbedUrl}
+        title={t.nousTrouver.title}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="w-full h-full border-0"
+      ></iframe>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,144 @@
+{
+  "htmlLang": "it",
+  "meta": {
+    "home": {
+      "title": "Il Paradiso — Ristorante di pesce e cucina italiana ad Hammamet, vicino alla medina",
+      "description": "Pesce e frutti di mare, pasta italiana. Ad Hammamet, a pochi minuti a piedi dalla medina e dal forte. 4,4/5 su Google, 95 recensioni."
+    },
+    "carte": {
+      "title": "Il menu — Il Paradiso, Hammamet",
+      "description": "Antipasti, primi, pesce, pizze e dolci. Il menu del ristorante Il Paradiso ad Hammamet."
+    },
+    "legal": {
+      "title": "Note legali — Il Paradiso",
+      "description": "Note legali del ristorante Il Paradiso, Hammamet."
+    }
+  },
+  "skipToContent": "Vai al contenuto principale",
+  "nav": {
+    "home": "Home",
+    "menu": "Il menu",
+    "gallery": "Foto",
+    "findUs": "Come arrivare",
+    "reserve": "Prenota"
+  },
+  "hero": {
+    "eyebrow": "Hammamet, accanto alla medina",
+    "tagline": "Pesce e pasta italiana, a due passi dalla medina.",
+    "ctaCall": "Chiama per prenotare",
+    "ctaWhatsapp": "Prenota su WhatsApp",
+    "rating": "4,4/5 su Google · 95 recensioni",
+    "distance": "A pochi minuti a piedi dalla medina e dal forte di Hammamet"
+  },
+  "stickyBar": {
+    "hoursUnknown": "Orari da confermare",
+    "closesAt": "Chiude alle 23:30",
+    "callLabel": "Chiama",
+    "addressShort": "Rue des Jasmins, Hammamet"
+  },
+  "laMaison": {
+    "title": "La casa",
+    "p1": "Cucina italiana con lo sguardo sul mare. Branzino grigliato, vongole, frutti di mare, preparati con semplicità e prodotti freschi.",
+    "p2": "Il forno per la pizza convive con il pesce del giorno. Qui il menu pende dalla parte della pasta e del pesce.",
+    "p3": "Terrazza esterna per mangiare all'aperto, a pochi minuti a piedi dalla medina e dal forte di Hammamet.",
+    "italianStaffNote": "Il personale parla italiano."
+  },
+  "signatures": {
+    "title": "I piatti forti",
+    "intro": "Quattro piatti, quelli che i clienti citano più spesso.",
+    "items": {
+      "loupGrille": {
+        "name": "Branzino alla griglia",
+        "description": "Branzino intero alla griglia, servito con limone e un filo d'olio d'oliva."
+      },
+      "vongole": {
+        "name": "Spaghetti alle vongole",
+        "description": "Spaghetti con vongole, aglio e prezzemolo, cottura al dente all'italiana."
+      },
+      "fruttiDiMare": {
+        "name": "Spaghetti ai frutti di mare",
+        "description": "Spaghetti con frutti di mare, pomodoro leggero, molluschi e calamari."
+      },
+      "frittura": {
+        "name": "Frittura mista di mare",
+        "description": "Piccola frittura di pesce e calamari, servita calda, da condividere o no."
+      }
+    }
+  },
+  "carteApercu": {
+    "title": "Il menu",
+    "intro": "Antipasti, primi, pesce, pizze e dolci. Un'anteprima qui, il menu completo poco più in là.",
+    "categories": {
+      "antipasti": "Antipasti",
+      "pasta": "Primi",
+      "pesce": "Pesce",
+      "pizza": "Pizze",
+      "dolci": "Dolci"
+    },
+    "cta": "Vedi il menu completo"
+  },
+  "galerie": {
+    "title": "La sala e la terrazza"
+  },
+  "avis": {
+    "title": "Recensioni",
+    "ratingLine": "4,4/5 su Google Maps · 95 recensioni",
+    "cta": "Leggi le recensioni su Google"
+  },
+  "nousTrouver": {
+    "title": "Come arrivare",
+    "addressLabel": "Indirizzo",
+    "plusCodeLabel": "Plus Code",
+    "distanceNote": "A pochi minuti a piedi dalla medina e dal forte di Hammamet.",
+    "cta": "Itinerario"
+  },
+  "reserver": {
+    "title": "Prenota",
+    "intro": "Una chiamata o un messaggio WhatsApp, più veloce di un modulo.",
+    "callCta": "Chiama",
+    "whatsappCta": "Scrivi su WhatsApp",
+    "whatsappMessage": "Buongiorno, vorrei prenotare un tavolo da Il Paradiso.",
+    "hoursNote": "Chiude alle 23:30."
+  },
+  "footer": {
+    "addressTitle": "Indirizzo",
+    "languagesTitle": "Lingue",
+    "legalLink": "Note legali",
+    "rights": "Il Paradiso, Hammamet."
+  },
+  "mobileActionBar": {
+    "call": "Chiama",
+    "whatsapp": "WhatsApp",
+    "itinerary": "Itinerario"
+  },
+  "common": {
+    "open": "Aperto",
+    "closed": "Chiuso",
+    "toConfirm": "Da confermare",
+    "languages": {
+      "fr": "Français",
+      "it": "Italiano",
+      "en": "English"
+    }
+  },
+  "pages": {
+    "carte": {
+      "title": "Il menu",
+      "disclaimer": "Menu in fase di conferma con il ristorante. I piatti qui sotto sono un esempio di struttura, non ancora il menu definitivo.",
+      "toConfirmBadge": "Da confermare",
+      "priceToConfirm": "Prezzo da confermare"
+    },
+    "legal": {
+      "title": "Note legali",
+      "identityTitle": "Editore del sito",
+      "identityName": "Il Paradiso",
+      "identityAddress": "Rue des Jasmins, Hammamet 8050, Tunisia",
+      "identityPhone": "Telefono",
+      "identityToConfirm": "Forma giuridica, numero di registrazione e responsabile della pubblicazione: da confermare con il ristorante.",
+      "hostingTitle": "Hosting",
+      "hostingText": "Sito ospitato da Netlify, Inc.",
+      "dataTitle": "Dati personali",
+      "dataText": "Questo sito non contiene moduli di raccolta dati e non installa cookie di tracciamento."
+    }
+  }
+}

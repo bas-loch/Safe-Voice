@@ -1,0 +1,144 @@
+{
+  "htmlLang": "en",
+  "meta": {
+    "home": {
+      "title": "Il Paradiso — Seafood and Italian Restaurant in Hammamet, near the Medina",
+      "description": "Fresh fish and seafood, Italian pasta. In Hammamet, a few minutes' walk from the medina and the fort. 4.4/5 on Google, 95 reviews."
+    },
+    "carte": {
+      "title": "The Menu — Il Paradiso, Hammamet",
+      "description": "Starters, pasta, fish, pizza and desserts. The menu of Il Paradiso restaurant in Hammamet."
+    },
+    "legal": {
+      "title": "Legal Notice — Il Paradiso",
+      "description": "Legal notice for Il Paradiso restaurant, Hammamet."
+    }
+  },
+  "skipToContent": "Skip to main content",
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "gallery": "Photos",
+    "findUs": "Find us",
+    "reserve": "Reserve"
+  },
+  "hero": {
+    "eyebrow": "Hammamet, next to the medina",
+    "tagline": "Fresh fish and Italian pasta, steps from the medina.",
+    "ctaCall": "Call to reserve",
+    "ctaWhatsapp": "Reserve on WhatsApp",
+    "rating": "4.4/5 on Google · 95 reviews",
+    "distance": "A few minutes' walk from the medina and the fort of Hammamet"
+  },
+  "stickyBar": {
+    "hoursUnknown": "Hours to be confirmed",
+    "closesAt": "Closes at 11:30pm",
+    "callLabel": "Call",
+    "addressShort": "Rue des Jasmins, Hammamet"
+  },
+  "laMaison": {
+    "title": "The house",
+    "p1": "Italian cooking, facing the sea. Grilled sea bass, clams, seafood, kept simple with fresh produce.",
+    "p2": "The traditional pizza oven sits alongside the catch of the day. Here, the menu leans toward pasta and fish.",
+    "p3": "Outdoor terrace for eating al fresco, a few minutes' walk from the medina and the fort of Hammamet.",
+    "italianStaffNote": "The staff speaks Italian."
+  },
+  "signatures": {
+    "title": "The signatures",
+    "intro": "Four dishes, the ones guests mention most often.",
+    "items": {
+      "loupGrille": {
+        "name": "Grilled sea bass",
+        "description": "Whole grilled sea bass, served with a wedge of lemon and a drizzle of olive oil."
+      },
+      "vongole": {
+        "name": "Spaghetti alle vongole",
+        "description": "Spaghetti with clams, garlic and parsley, cooked al dente."
+      },
+      "fruttiDiMare": {
+        "name": "Spaghetti ai frutti di mare",
+        "description": "Spaghetti with seafood, light tomato sauce, shellfish and squid."
+      },
+      "frittura": {
+        "name": "Frittura mista di mare",
+        "description": "Small mixed fry of fish and squid, served hot, to share or not."
+      }
+    }
+  },
+  "carteApercu": {
+    "title": "The menu",
+    "intro": "Starters, pasta, fish, pizza and desserts. A preview here, the full menu one click away.",
+    "categories": {
+      "antipasti": "Starters",
+      "pasta": "Pasta",
+      "pesce": "Fish",
+      "pizza": "Pizza",
+      "dolci": "Desserts"
+    },
+    "cta": "See the full menu"
+  },
+  "galerie": {
+    "title": "The dining room and terrace"
+  },
+  "avis": {
+    "title": "Reviews",
+    "ratingLine": "4.4/5 on Google Maps · 95 reviews",
+    "cta": "Read reviews on Google"
+  },
+  "nousTrouver": {
+    "title": "Find us",
+    "addressLabel": "Address",
+    "plusCodeLabel": "Plus Code",
+    "distanceNote": "A few minutes' walk from the medina and the fort of Hammamet.",
+    "cta": "Directions"
+  },
+  "reserver": {
+    "title": "Reserve",
+    "intro": "A call or a WhatsApp message is faster than a form.",
+    "callCta": "Call",
+    "whatsappCta": "Message on WhatsApp",
+    "whatsappMessage": "Hello, I'd like to book a table at Il Paradiso.",
+    "hoursNote": "Closes at 11:30pm."
+  },
+  "footer": {
+    "addressTitle": "Address",
+    "languagesTitle": "Languages",
+    "legalLink": "Legal notice",
+    "rights": "Il Paradiso, Hammamet."
+  },
+  "mobileActionBar": {
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "itinerary": "Directions"
+  },
+  "common": {
+    "open": "Open",
+    "closed": "Closed",
+    "toConfirm": "To be confirmed",
+    "languages": {
+      "fr": "Français",
+      "it": "Italiano",
+      "en": "English"
+    }
+  },
+  "pages": {
+    "carte": {
+      "title": "The menu",
+      "disclaimer": "Menu pending confirmation with the restaurant. The dishes below are a structural example, not yet the final menu.",
+      "toConfirmBadge": "To be confirmed",
+      "priceToConfirm": "Price to be confirmed"
+    },
+    "legal": {
+      "title": "Legal notice",
+      "identityTitle": "Site publisher",
+      "identityName": "Il Paradiso",
+      "identityAddress": "Rue des Jasmins, Hammamet 8050, Tunisia",
+      "identityPhone": "Phone",
+      "identityToConfirm": "Legal structure, registration number and publication manager: to be confirmed with the restaurant.",
+      "hostingTitle": "Hosting",
+      "hostingText": "Site hosted by Netlify, Inc.",
+      "dataTitle": "Personal data",
+      "dataText": "This site has no data-collecting forms and sets no tracking cookies."
+    }
+  }
+}

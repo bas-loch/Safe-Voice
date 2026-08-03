@@ -1,0 +1,55 @@
+---
+import { useTranslations, type Lang } from "../i18n/utils";
+import { restaurant } from "../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const whatsappHref = `https://wa.me/${restaurant.whatsappNumber}?text=${encodeURIComponent(t.reserver.whatsappMessage)}`;
+---
+
+<nav
+  aria-label={t.mobileActionBar.call + " · " + t.mobileActionBar.whatsapp + " · " + t.mobileActionBar.itinerary}
+  class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-navy text-cream grid grid-cols-3 border-t border-cream/10"
+  style="padding-bottom: env(safe-area-inset-bottom);"
+>
+  <a
+    href={restaurant.telephoneHref}
+    class="flex flex-col items-center justify-center gap-0.5 py-3 min-h-11 text-xs font-medium hover:bg-navy-dark transition-colors"
+    aria-label={t.hero.ctaCall}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 4 6a2 2 0 0 1 2-2Z" />
+    </svg>
+    {t.mobileActionBar.call}
+  </a>
+  <a
+    href={whatsappHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex flex-col items-center justify-center gap-0.5 py-3 min-h-11 text-xs font-medium border-x border-cream/10 hover:bg-navy-dark transition-colors"
+    aria-label={t.hero.ctaWhatsapp}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20l1.4-4.2A8 8 0 1 1 9 18.6L4 20Z" />
+      <path d="M9 10c0 2.5 2.5 5 5 5" />
+    </svg>
+    {t.mobileActionBar.whatsapp}
+  </a>
+  <a
+    href={restaurant.googleMapsDirectionsUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex flex-col items-center justify-center gap-0.5 py-3 min-h-11 text-xs font-medium hover:bg-navy-dark transition-colors"
+    aria-label={t.nousTrouver.cta}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z" />
+      <circle cx="12" cy="9.5" r="2.25" />
+    </svg>
+    {t.mobileActionBar.itinerary}
+  </a>
+</nav>

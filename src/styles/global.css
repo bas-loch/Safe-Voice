@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Polices auto-hébergées via @fontsource (fichiers woff2 servis depuis notre propre domaine) */
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@theme {
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream: #faf6ef;
+  --color-cream-dark: #f2ead9;
+  --color-navy: #153347;
+  --color-navy-dark: #0e2433;
+  --color-terracotta: #c1622d;
+  --color-terracotta-dark: #a34f22;
+  --color-ink: #1e2a30;
+
+  --breakpoint-xs: 24rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    line-height: 1.2;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Visible par défaut : si le script de révélation ne s'exécute pas (JS
+     désactivé, erreur de script), le contenu reste lisible. L'état caché
+     n'est activé que par la classe `js` posée en tête de <head>. */
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .fade-in-up {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  html.js .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js .fade-in-up {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}

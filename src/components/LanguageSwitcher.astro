@@ -1,0 +1,32 @@
+---
+import { languages, getLocalizedPath, type Lang } from "../i18n/utils";
+
+export interface Props {
+  lang: Lang;
+  /** Chemin courant sans préfixe de langue, ex: "/", "/carte" */
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const entries = Object.entries(languages) as [Lang, string][];
+---
+
+<nav aria-label="Choix de la langue" class="flex items-center gap-1 text-sm">
+  {
+    entries.map(([code, label], i) => (
+      <>
+        {i > 0 && <span class="text-navy/30" aria-hidden="true">/</span>}
+        <a
+          href={getLocalizedPath(code, currentPath)}
+          class={`px-1.5 py-1 rounded transition-colors ${
+            code === lang ? "text-terracotta font-semibold" : "text-navy/70 hover:text-navy"
+          }`}
+          aria-current={code === lang ? "true" : undefined}
+        >
+          {code.toUpperCase()}
+          <span class="sr-only"> — {label}</span>
+        </a>
+      </>
+    ))
+  }
+</nav>

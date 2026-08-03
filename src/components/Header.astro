@@ -1,0 +1,41 @@
+---
+import { useTranslations, getLocalizedPath, type Lang } from "../i18n/utils";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { restaurant } from "../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+const home = getLocalizedPath(lang, "/");
+---
+
+<header class="border-b border-navy/10 bg-cream">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+    <a href={home} class="font-serif text-xl sm:text-2xl text-navy tracking-tight">
+      {restaurant.name}
+    </a>
+
+    <nav aria-label="Navigation principale" class="hidden md:flex items-center gap-6 text-sm text-navy/80">
+      <a href={`${home}#la-maison`} class="hover:text-terracotta transition-colors">{t.nav.home}</a>
+      <a href={`${home}#signatures`} class="hover:text-terracotta transition-colors">{t.signatures.title}</a>
+      <a href={`${home}#carte`} class="hover:text-terracotta transition-colors">{t.nav.menu}</a>
+      <a href={`${home}#galerie`} class="hover:text-terracotta transition-colors">{t.nav.gallery}</a>
+      <a href={`${home}#nous-trouver`} class="hover:text-terracotta transition-colors">{t.nav.findUs}</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <a
+        href={restaurant.telephoneHref}
+        class="hidden sm:inline-flex items-center rounded-full bg-terracotta text-cream px-4 py-2 text-sm font-medium hover:bg-terracotta-dark transition-colors"
+        aria-label={t.hero.ctaCall}
+      >
+        {t.nav.reserve}
+      </a>
+      <LanguageSwitcher lang={lang} currentPath={currentPath} />
+    </div>
+  </div>
+</header>

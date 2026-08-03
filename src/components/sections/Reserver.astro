@@ -1,0 +1,42 @@
+---
+import { useTranslations, type Lang } from "../../i18n/utils";
+import { restaurant } from "../../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const whatsappHref = `https://wa.me/${restaurant.whatsappNumber}?text=${encodeURIComponent(t.reserver.whatsappMessage)}`;
+---
+
+<section id="reserver" class="bg-navy text-cream py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center">
+    <div class="fade-in-up max-w-xl mx-auto">
+      <h2 class="font-serif text-3xl sm:text-4xl mb-4">{t.reserver.title}</h2>
+      <p class="text-cream/80 mb-8">{t.reserver.intro}</p>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-6">
+        <a
+          href={restaurant.telephoneHref}
+          class="inline-flex items-center rounded-full bg-terracotta px-8 py-4 min-h-11 text-base font-semibold hover:bg-terracotta-dark transition-colors"
+          aria-label={t.reserver.callCta}
+        >
+          {t.reserver.callCta} — {restaurant.telephone}
+        </a>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-full bg-cream text-navy px-8 py-4 min-h-11 text-base font-semibold hover:bg-white transition-colors"
+          aria-label={t.reserver.whatsappCta}
+        >
+          {t.reserver.whatsappCta}
+        </a>
+      </div>
+
+      <p class="text-cream/70 text-sm">{t.reserver.hoursNote}</p>
+    </div>
+  </div>
+</section>

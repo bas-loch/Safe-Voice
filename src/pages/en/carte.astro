@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import MenuList from "../../components/MenuList.astro";
+import { useTranslations } from "../../i18n/utils";
+
+const lang = "en" as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.carte.title}
+  description={t.meta.carte.description}
+  path="/en/carte"
+  skipLabel={t.skipToContent}
+>
+  <Header lang={lang} currentPath="/carte" />
+  <main id="contenu">
+    <MenuList lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

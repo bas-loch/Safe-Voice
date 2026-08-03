@@ -1,0 +1,35 @@
+---
+import { useTranslations, type Lang } from "../i18n/utils";
+import { restaurant } from "../data/restaurant";
+import { isOpenNow } from "../data/openingHours";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const openStatus = isOpenNow();
+---
+
+<div class="sticky top-0 md:static z-30 bg-navy text-cream">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-2 flex items-center gap-3 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
+    {
+      openStatus === null ? (
+        <span class="text-cream/80">{t.stickyBar.hoursUnknown}</span>
+      ) : (
+        <span class={`font-semibold ${openStatus ? "text-white" : "text-cream/60"}`}>
+          {openStatus ? t.common.open : t.common.closed}
+        </span>
+      )
+    }
+    <span aria-hidden="true" class="text-cream/30">·</span>
+    <span>{t.stickyBar.closesAt}</span>
+    <span aria-hidden="true" class="text-cream/30">·</span>
+    <a href={restaurant.telephoneHref} class="hover:text-terracotta transition-colors underline decoration-cream/30">
+      {restaurant.telephone}
+    </a>
+    <span aria-hidden="true" class="text-cream/30 hidden sm:inline">·</span>
+    <span class="hidden sm:inline text-cream/80">{t.stickyBar.addressShort}</span>
+  </div>
+</div>

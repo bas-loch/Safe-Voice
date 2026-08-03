@@ -1,0 +1,35 @@
+---
+import { useTranslations, type Lang } from "../i18n/utils";
+import { restaurant } from "../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="mx-auto max-w-2xl px-4 sm:px-6 py-16 sm:py-24">
+  <h1 class="font-serif text-4xl sm:text-5xl text-navy mb-10">{t.pages.legal.title}</h1>
+
+  <section class="mb-10">
+    <h2 class="font-serif text-xl text-navy mb-3">{t.pages.legal.identityTitle}</h2>
+    <p class="text-ink/90">
+      {t.pages.legal.identityName}<br />
+      {t.pages.legal.identityAddress}<br />
+      {t.pages.legal.identityPhone}: <a href={restaurant.telephoneHref} class="underline hover:text-terracotta">{restaurant.telephone}</a>
+    </p>
+    <p class="mt-3 text-sm text-ink/60">{t.pages.legal.identityToConfirm}</p>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="font-serif text-xl text-navy mb-3">{t.pages.legal.hostingTitle}</h2>
+    <p class="text-ink/90">{t.pages.legal.hostingText}</p>
+  </section>
+
+  <section>
+    <h2 class="font-serif text-xl text-navy mb-3">{t.pages.legal.dataTitle}</h2>
+    <p class="text-ink/90">{t.pages.legal.dataText}</p>
+  </section>
+</div>

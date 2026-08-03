@@ -1,0 +1,56 @@
+---
+import Photo from "../Photo.astro";
+import { useTranslations, type Lang } from "../../i18n/utils";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const dishes: { key: keyof typeof t.signatures.items; image: string; big: boolean; wide: boolean }[] = [
+  { key: "loupGrille", image: "plat-loup-grille", big: true, wide: false },
+  { key: "vongole", image: "plat-spaghetti-vongole", big: false, wide: false },
+  { key: "fruttiDiMare", image: "plat-frutti-di-mare", big: false, wide: false },
+  { key: "frittura", image: "plat-frittura-mista", big: false, wide: true },
+];
+---
+
+<section id="signatures" class="bg-cream-dark py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-2xl mb-10 fade-in-up">
+      <h2 class="font-serif text-3xl sm:text-4xl text-navy mb-3">{t.signatures.title}</h2>
+      <p class="text-ink/80">{t.signatures.intro}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        dishes.map((dish) => {
+          const item = t.signatures.items[dish.key];
+          return (
+            <article
+              class={`fade-in-up group ${dish.big ? "md:row-span-2" : ""} ${dish.wide ? "md:col-span-2" : ""}`}
+            >
+              <div
+                class={`overflow-hidden rounded-lg ${
+                  dish.wide ? "aspect-[16/9] md:aspect-[21/9]" : dish.big ? "aspect-[4/3] md:aspect-[4/5]" : "aspect-[4/3]"
+                }`}
+              >
+                <Photo
+                  name={dish.image}
+                  alt={`${item.name} — Il Paradiso, Hammamet`}
+                  width={1200}
+                  height={900}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <h3 class="font-serif text-xl sm:text-2xl text-navy mt-4">{item.name}</h3>
+              <p class="text-ink/80 mt-1">{item.description}</p>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

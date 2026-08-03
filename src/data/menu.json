@@ -1,0 +1,101 @@
+{
+  "status": "a_confirmer",
+  "note": "Carte non confirmée à ce jour avec l'établissement. Les plats des catégories \"pasta\" et \"pesce\" sont réels (cités dans les avis clients). Les autres catégories contiennent un exemple de structure à remplacer par la carte réelle. Prix non communiqués : à confirmer.",
+  "categories": [
+    {
+      "id": "antipasti",
+      "items": [
+        {
+          "isExample": true,
+          "name": { "fr": "[À CONFIRMER] Exemple d'antipasto", "it": "[DA CONFERMARE] Esempio di antipasto", "en": "[TO BE CONFIRMED] Starter example" },
+          "description": {
+            "fr": "Exemple de structure, à remplacer par un antipasto réel de la carte.",
+            "it": "Esempio di struttura, da sostituire con un antipasto reale del menu.",
+            "en": "Structural placeholder, to be replaced with a real starter from the menu."
+          },
+          "price": null
+        }
+      ]
+    },
+    {
+      "id": "pasta",
+      "items": [
+        {
+          "isExample": false,
+          "name": { "fr": "Spaghetti alle vongole", "it": "Spaghetti alle vongole", "en": "Spaghetti alle vongole" },
+          "description": {
+            "fr": "Spaghetti aux palourdes, ail et persil, cuisson al dente à l'italienne.",
+            "it": "Spaghetti con vongole, aglio e prezzemolo, cottura al dente all'italiana.",
+            "en": "Spaghetti with clams, garlic and parsley, cooked al dente."
+          },
+          "price": null
+        },
+        {
+          "isExample": false,
+          "name": { "fr": "Spaghetti ai frutti di mare", "it": "Spaghetti ai frutti di mare", "en": "Spaghetti ai frutti di mare" },
+          "description": {
+            "fr": "Spaghetti aux fruits de mer, sauce tomate légère, coquillages et calamars.",
+            "it": "Spaghetti con frutti di mare, pomodoro leggero, molluschi e calamari.",
+            "en": "Spaghetti with seafood, light tomato sauce, shellfish and squid."
+          },
+          "price": null
+        }
+      ]
+    },
+    {
+      "id": "pesce",
+      "items": [
+        {
+          "isExample": false,
+          "name": { "fr": "Loup grillé", "it": "Branzino alla griglia", "en": "Grilled sea bass" },
+          "description": {
+            "fr": "Loup de mer grillé entier, servi avec un filet de citron et un trait d'huile d'olive.",
+            "it": "Branzino intero alla griglia, servito con limone e un filo d'olio d'oliva.",
+            "en": "Whole grilled sea bass, served with a wedge of lemon and a drizzle of olive oil."
+          },
+          "price": null
+        },
+        {
+          "isExample": false,
+          "name": { "fr": "Frittura mista di mare", "it": "Frittura mista di mare", "en": "Frittura mista di mare" },
+          "description": {
+            "fr": "Petite friture de poissons et calamars, servie chaude.",
+            "it": "Piccola frittura di pesce e calamari, servita calda.",
+            "en": "Small mixed fry of fish and squid, served hot."
+          },
+          "price": null
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "items": [
+        {
+          "isExample": true,
+          "name": { "fr": "[À CONFIRMER] Exemple de pizza", "it": "[DA CONFERMARE] Esempio di pizza", "en": "[TO BE CONFIRMED] Pizza example" },
+          "description": {
+            "fr": "Cuite au four traditionnel. Exemple de structure, à remplacer par une pizza réelle de la carte.",
+            "it": "Cotta nel forno tradizionale. Esempio di struttura, da sostituire con una pizza reale del menu.",
+            "en": "Baked in the traditional oven. Structural placeholder, to be replaced with a real pizza from the menu."
+          },
+          "price": null
+        }
+      ]
+    },
+    {
+      "id": "dolci",
+      "items": [
+        {
+          "isExample": true,
+          "name": { "fr": "[À CONFIRMER] Exemple de dessert", "it": "[DA CONFERMARE] Esempio di dolce", "en": "[TO BE CONFIRMED] Dessert example" },
+          "description": {
+            "fr": "Exemple de structure, à remplacer par un dessert réel de la carte.",
+            "it": "Esempio di struttura, da sostituire con un dolce reale del menu.",
+            "en": "Structural placeholder, to be replaced with a real dessert from the menu."
+          },
+          "price": null
+        }
+      ]
+    }
+  ]
+}

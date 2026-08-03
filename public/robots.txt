@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ilparadiso-hammamet.netlify.app/sitemap.xml

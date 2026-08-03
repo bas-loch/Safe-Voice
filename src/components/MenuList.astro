@@ -1,0 +1,65 @@
+---
+import { useTranslations, type Lang } from "../i18n/utils";
+import menu from "../data/menu.json";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+type MenuItem = {
+  isExample: boolean;
+  name: Record<Lang, string>;
+  description: Record<Lang, string>;
+  price: number | null;
+};
+
+type MenuCategory = {
+  id: "antipasti" | "pasta" | "pesce" | "pizza" | "dolci";
+  items: MenuItem[];
+};
+
+const categories = menu.categories as MenuCategory[];
+---
+
+<div class="mx-auto max-w-3xl px-4 sm:px-6 py-16 sm:py-24">
+  <h1 class="font-serif text-4xl sm:text-5xl text-navy mb-6">{t.pages.carte.title}</h1>
+
+  <p class="rounded-lg border border-terracotta/40 bg-terracotta/10 text-navy px-4 py-3 text-sm mb-12">
+    {t.pages.carte.disclaimer}
+  </p>
+
+  <div class="space-y-14">
+    {
+      categories.map((category) => (
+        <section aria-labelledby={`categorie-${category.id}`}>
+          <h2 id={`categorie-${category.id}`} class="font-serif text-2xl sm:text-3xl text-navy mb-6">
+            {t.carteApercu.categories[category.id]}
+          </h2>
+          <ul class="space-y-6">
+            {category.items.map((item) => (
+              <li class="flex justify-between gap-4 border-b border-navy/10 pb-4">
+                <div>
+                  <p class="font-medium text-ink">
+                    {item.name[lang]}
+                    {item.isExample && (
+                      <span class="ml-2 align-middle text-xs font-semibold uppercase tracking-wide text-terracotta">
+                        {t.pages.carte.toConfirmBadge}
+                      </span>
+                    )}
+                  </p>
+                  <p class="text-ink/70 text-sm mt-1">{item.description[lang]}</p>
+                </div>
+                <p class="whitespace-nowrap text-sm text-ink/60 shrink-0 pt-0.5">
+                  {item.price ?? t.pages.carte.priceToConfirm}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</div>

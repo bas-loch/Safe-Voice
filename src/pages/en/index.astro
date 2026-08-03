@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import StickyInfoBar from "../../components/StickyInfoBar.astro";
+import Hero from "../../components/sections/Hero.astro";
+import LaMaison from "../../components/sections/LaMaison.astro";
+import Signatures from "../../components/sections/Signatures.astro";
+import CarteApercu from "../../components/sections/CarteApercu.astro";
+import Galerie from "../../components/sections/Galerie.astro";
+import Avis from "../../components/sections/Avis.astro";
+import NousTrouver from "../../components/sections/NousTrouver.astro";
+import Reserver from "../../components/sections/Reserver.astro";
+import { useTranslations } from "../../i18n/utils";
+
+const lang = "en" as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.home.title}
+  description={t.meta.home.description}
+  path="/en/"
+  skipLabel={t.skipToContent}
+>
+  <Header lang={lang} currentPath="/" />
+  <StickyInfoBar lang={lang} />
+  <main id="contenu">
+    <Hero lang={lang} />
+    <LaMaison lang={lang} />
+    <Signatures lang={lang} />
+    <CarteApercu lang={lang} />
+    <Galerie lang={lang} />
+    <Avis lang={lang} />
+    <NousTrouver lang={lang} />
+    <Reserver lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

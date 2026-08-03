@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import RestaurantSchema from "../components/RestaurantSchema.astro";
+import MobileActionBar from "../components/MobileActionBar.astro";
+import { getAlternateLinks, type Lang } from "../i18n/utils";
+
+export interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string;
+  skipLabel: string;
+}
+
+const { lang, title, description, path, skipLabel } = Astro.props;
+
+const canonicalUrl = new URL(path, Astro.site);
+const alternates = getAlternateLinks(path);
+const ogImageUrl = new URL("/images/hero-terrasse.jpg", Astro.site).toString();
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.lang} href={new URL(alt.href, Astro.site).toString()} />
+      ))
+    }
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={lang} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <RestaurantSchema url={canonicalUrl.toString()} />
+  </head>
+  <body class="antialiased">
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-navy focus:text-cream focus:px-4 focus:py-2 focus:rounded"
+    >
+      {skipLabel}
+    </a>
+    <slot />
+    <MobileActionBar lang={lang} />
+    <script>
+      const revealed = document.querySelectorAll(".fade-in-up");
+      if (revealed.length > 0 && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15 }
+        );
+        revealed.forEach((el) => observer.observe(el));
+      } else {
+        revealed.forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

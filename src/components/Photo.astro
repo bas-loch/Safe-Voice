@@ -1,0 +1,53 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+export interface Props {
+  /** Nom de fichier sans extension, ex: "hero-terrasse" — voir IMAGES-A-FOURNIR.md */
+  name: string;
+  /** Texte alternatif descriptif, rédigé en français, jamais vide ni générique */
+  alt: string;
+  width: number;
+  height: number;
+  class?: string;
+  /** Image prioritaire (LCP), ex: le hero : chargement eager + fetchpriority high */
+  priority?: boolean;
+}
+
+const { name, alt, width, height, class: className = "", priority = false } = Astro.props;
+
+const imagesDir = path.join(process.cwd(), "public", "images");
+const hasWebp = fs.existsSync(path.join(imagesDir, `${name}.webp`));
+const hasJpg = fs.existsSync(path.join(imagesDir, `${name}.jpg`));
+const hasAny = hasWebp || hasJpg;
+
+const ratio = width / height;
+---
+
+{
+  hasAny ? (
+    <picture>
+      {hasWebp && <source srcset={`/images/${name}.webp`} type="image/webp" />}
+      <img
+        src={hasJpg ? `/images/${name}.jpg` : `/images/${name}.webp`}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchpriority={priority ? "high" : "auto"}
+        class={className}
+        style={`aspect-ratio: ${ratio};`}
+      />
+    </picture>
+  ) : (
+    <div
+      class={`flex items-center justify-center bg-navy/10 text-navy/70 border border-dashed border-navy/30 text-center p-4 text-sm ${className}`}
+      style={`aspect-ratio: ${ratio};`}
+      role="img"
+      aria-label={alt}
+    >
+      Photo manquante : {name}.webp / {name}.jpg
+    </div>
+  )
+}

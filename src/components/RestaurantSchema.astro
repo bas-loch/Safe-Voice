@@ -1,0 +1,43 @@
+---
+import { restaurant } from "../data/restaurant";
+
+export interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+
+/**
+ * openingHoursSpecification et geo sont volontairement absents : seule la
+ * fermeture (23h30) est confirmée, pas les heures d'ouverture ni les
+ * coordonnées GPS précises. On ne publie pas de JSON-LD inventé — voir
+ * A-CONFIRMER.md. À compléter dès que ces données seront confirmées.
+ */
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: restaurant.name,
+  url,
+  telephone: restaurant.telephone,
+  priceRange: `${restaurant.priceRange.min}-${restaurant.priceRange.max} ${restaurant.priceRange.currency}`,
+  servesCuisine: restaurant.cuisine,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: restaurant.address.street,
+    postalCode: restaurant.address.postalCode,
+    addressLocality: restaurant.address.city,
+    addressCountry: restaurant.address.countryCode,
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: restaurant.rating.value,
+    reviewCount: restaurant.rating.count,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  hasMenu: `${new URL("/carte", url).toString()}`,
+  sameAs: [restaurant.googleReviewsUrl],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

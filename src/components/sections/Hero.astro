@@ -1,0 +1,67 @@
+---
+import Photo from "../Photo.astro";
+import { useTranslations, type Lang } from "../../i18n/utils";
+import { restaurant } from "../../data/restaurant";
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const whatsappHref = `https://wa.me/${restaurant.whatsappNumber}?text=${encodeURIComponent(t.reserver.whatsappMessage)}`;
+---
+
+<section class="relative">
+  <div class="relative">
+    <Photo
+      name="hero-terrasse"
+      alt="Terrasse extérieure du restaurant Il Paradiso à Hammamet, tables dressées en plein air"
+      width={2000}
+      height={1200}
+      priority
+      class="w-full h-[68svh] min-h-[420px] max-h-[720px] object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/25 to-transparent" aria-hidden="true"></div>
+    <div class="absolute inset-0 flex flex-col justify-end">
+      <div class="mx-auto max-w-6xl w-full px-4 sm:px-6 pb-8 sm:pb-12 text-cream">
+        <p class="text-sm sm:text-base font-medium text-cream/90 mb-2">{t.hero.eyebrow}</p>
+        <h1 class="font-serif text-4xl sm:text-6xl mb-3">{restaurant.name}</h1>
+        <p class="text-lg sm:text-xl text-cream/90 mb-6 max-w-md">{t.hero.tagline}</p>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={restaurant.telephoneHref}
+            class="inline-flex items-center rounded-full bg-terracotta px-6 py-3 min-h-11 text-sm sm:text-base font-semibold text-cream hover:bg-terracotta-dark transition-colors"
+            aria-label={t.hero.ctaCall}
+          >
+            {t.hero.ctaCall}
+          </a>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center rounded-full bg-cream px-6 py-3 min-h-11 text-sm sm:text-base font-semibold text-navy hover:bg-white transition-colors"
+            aria-label={t.hero.ctaWhatsapp}
+          >
+            {t.hero.ctaWhatsapp}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-cream-dark">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-navy/80">
+      <a
+        href={restaurant.googleReviewsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold text-navy hover:text-terracotta transition-colors"
+      >
+        {t.hero.rating}
+      </a>
+      <span aria-hidden="true" class="text-navy/30">·</span>
+      <span>{t.hero.distance}</span>
+    </div>
+  </div>
+</section>
