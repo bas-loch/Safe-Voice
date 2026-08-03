@@ -60,7 +60,7 @@ La carte du restaurant vit dans `src/data/menu.json`, avec les noms/descriptions
 
 Toutes les photos vont dans `public/images/`, au format `.webp` + `.jpg` de secours, avec les noms de fichiers exacts listés dans `IMAGES-A-FOURNIR.md`. Tant qu'une photo manque, le site affiche un bloc gris portant son nom en clair à la place — jamais une autre image.
 
-Les 12 emplacements sont actuellement remplis par des **illustrations vectorielles temporaires** (pas des photos), marquées d'un badge "Illustration temporaire" visible sur le site. Voir `IMAGES-A-FOURNIR.md` pour la marche à suivre pour les remplacer par les vraies photos.
+Les 12 emplacements sont actuellement remplis par des **photos stock temporaires** (pas des photos d'Il Paradiso), marquées d'un badge "Photo temporaire" visible sur le site. Voir `IMAGES-A-FOURNIR.md` pour la marche à suivre pour les remplacer par les vraies photos.
 
 ## Horaires d'ouverture
 

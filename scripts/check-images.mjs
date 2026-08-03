@@ -21,8 +21,8 @@ const required = [
   "galerie-04",
 ];
 
-// Doit rester synchronisé avec src/data/tempIllustrations.ts
-const tempIllustrations = new Set([
+// Doit rester synchronisé avec src/data/tempPlaceholders.ts
+const tempPlaceholders = new Set([
   "hero-terrasse",
   "exterieur-facade",
   "plat-loup-grille",
@@ -45,10 +45,10 @@ console.log(`Vérification des photos dans ${path.relative(process.cwd(), images
 for (const name of required) {
   const hasWebp = existsSync(path.join(imagesDir, `${name}.webp`));
   const hasJpg = existsSync(path.join(imagesDir, `${name}.jpg`));
-  const isTemp = tempIllustrations.has(name);
+  const isTemp = tempPlaceholders.has(name);
 
   if ((hasWebp && hasJpg) && isTemp) {
-    console.log(`  TEMP  ${name} — illustration temporaire, à remplacer par la vraie photo`);
+    console.log(`  TEMP  ${name} — photo temporaire (photo stock, pas Il Paradiso), à remplacer par la vraie photo`);
     tempCount++;
   } else if (hasWebp && hasJpg) {
     console.log(`  OK    ${name} (.webp + .jpg)`);
@@ -60,7 +60,7 @@ for (const name of required) {
   }
 }
 
-console.log(`\n${required.length - missingCount}/${required.length} photos présentes, dont ${tempCount} illustration(s) temporaire(s) encore à remplacer.`);
+console.log(`\n${required.length - missingCount}/${required.length} photos présentes, dont ${tempCount} photo(s) temporaire(s) encore à remplacer.`);
 
 if (missingCount > 0) {
   console.log(`\n${missingCount} photo(s) manquante(s). Voir IMAGES-A-FOURNIR.md.`);
@@ -68,5 +68,5 @@ if (missingCount > 0) {
 }
 
 if (tempCount > 0) {
-  console.log(`Rappel : ${tempCount} illustration(s) temporaire(s) à remplacer avant de présenter le site au restaurant.`);
+  console.log(`Rappel : ${tempCount} photo(s) temporaire(s) (stock, pas Il Paradiso) à remplacer avant de présenter le site au restaurant.`);
 }

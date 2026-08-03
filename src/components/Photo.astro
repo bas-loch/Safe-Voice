@@ -1,7 +1,7 @@
 ---
 import fs from "node:fs";
 import path from "node:path";
-import { TEMP_ILLUSTRATIONS } from "../data/tempIllustrations";
+import { TEMP_PLACEHOLDER_PHOTOS } from "../data/tempPlaceholders";
 
 export interface Props {
   /** Nom de fichier sans extension, ex: "hero-terrasse" — voir IMAGES-A-FOURNIR.md */
@@ -21,7 +21,7 @@ const imagesDir = path.join(process.cwd(), "public", "images");
 const hasWebp = fs.existsSync(path.join(imagesDir, `${name}.webp`));
 const hasJpg = fs.existsSync(path.join(imagesDir, `${name}.jpg`));
 const hasAny = hasWebp || hasJpg;
-const isTemp = hasAny && TEMP_ILLUSTRATIONS.has(name);
+const isTemp = hasAny && TEMP_PLACEHOLDER_PHOTOS.has(name);
 
 const ratio = width / height;
 ---
@@ -43,7 +43,7 @@ const ratio = width / height;
         />
       </picture>
       <span class="absolute left-2 top-2 sm:left-3 sm:top-3 rounded-full bg-navy/85 px-2.5 py-1 text-[10px] font-medium leading-none text-cream sm:text-xs">
-        Illustration temporaire
+        Photo temporaire
       </span>
     </div>
   ) : hasAny ? (

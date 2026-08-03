@@ -1,18 +1,18 @@
 # Photos à fournir — Il Paradiso
 
-Toutes les photos vivent dans `public/images/`. Aucune photo de banque d'images, générée par IA, ou d'un autre restaurant n'est autorisée dans ce dépôt — voir la règle §3 du brief.
+Toutes les photos vivent dans `public/images/`. La règle de base du projet reste : aucune photo de banque d'images ni d'un autre restaurant sur le site final — voir la règle §3 du brief.
 
-## État actuel : illustrations temporaires
+## État actuel : photos temporaires (stock, pas Il Paradiso)
 
-Les 12 emplacements sont pour l'instant remplis par des **illustrations vectorielles originales** (dessinées en interne, pas des photos), pour que la maquette soit présentable en attendant les vraies photos. Chacune porte un badge visible "Illustration temporaire" sur le site. Ce ne sont ni des photos de banque, ni des images générées par IA, ni des photos d'un autre établissement — ce sont des dessins, donc rien qui puisse être confondu avec une vraie photo du restaurant.
+Les 12 emplacements sont pour l'instant remplis par des **photos stock trouvées en ligne**, à la demande explicite du client, le temps d'avoir les vraies photos du restaurant. Ce ne sont **pas** des photos d'Il Paradiso. Chacune porte un badge visible "Photo temporaire" sur le site pour qu'on ne les confonde jamais avec les vraies.
 
-**Avant toute présentation au restaurant ou mise en ligne définitive**, chaque illustration doit être remplacée par la vraie photo correspondante :
-1. Déposer `<nom>.webp` et `<nom>.jpg` dans `public/images/` (voir tableau ci-dessous), en écrasant les fichiers de l'illustration temporaire.
-2. Retirer le nom correspondant de `src/data/tempIllustrations.ts` (et de la liste dupliquée dans `scripts/check-images.mjs`) pour faire disparaître le badge.
+**Avant toute présentation au restaurant ou mise en ligne définitive**, chaque photo temporaire doit être remplacée par la vraie photo correspondante :
+1. Déposer `<nom>.webp` et `<nom>.jpg` dans `public/images/` (voir tableau ci-dessous), en écrasant les fichiers temporaires.
+2. Retirer le nom correspondant de `src/data/tempPlaceholders.ts` (et de la liste dupliquée dans `scripts/check-images.mjs`) pour faire disparaître le badge.
 
-`npm run check:images` indique à tout moment ce qui manque encore et ce qui est encore une illustration temporaire (`TEMP`).
+`npm run check:images` indique à tout moment ce qui manque encore et ce qui est encore une photo temporaire (`TEMP`).
 
-Pour chaque emplacement, fournir **deux fichiers** : un `.webp` (format principal) et un `.jpg` de secours (même image, même nom de base). Si un fichier venait à manquer complètement (aucune illustration, aucune photo), la page afficherait un bloc gris avec le nom en clair — jamais une autre image à sa place.
+Pour chaque emplacement, fournir **deux fichiers** : un `.webp` (format principal) et un `.jpg` de secours (même image, même nom de base). Si un fichier venait à manquer complètement (aucune photo du tout), la page afficherait un bloc gris avec le nom en clair — jamais une autre image à sa place.
 
 ## Manifeste (12 photos maximum)
 
