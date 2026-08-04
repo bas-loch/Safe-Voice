@@ -1,0 +1,93 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "Café Achiri — Traditional Café in Hammamet, Steps from the Medina",
+    "description": "Café Achiri, a traditional Hammamet coffee house open from 5:30am, a few minutes from the medina and the kasbah. Address, menu and directions."
+  },
+  "skipLink": "Skip to content",
+  "nav": {
+    "leCafe": "The café",
+    "carte": "Menu",
+    "galerie": "Gallery",
+    "avis": "Reviews",
+    "trouver": "Find us"
+  },
+  "hero": {
+    "kicker": "Traditional café — Hammamet",
+    "tagline": "Open from 5:30am, minutes from the medina.",
+    "ctaItineraire": "Directions",
+    "ctaAppeler": "Call",
+    "ctaAppelerIndisponible": "Number to be confirmed",
+    "ratingText": "on Google (12 reviews)",
+    "repere": "A short walk from the medina and the kasbah"
+  },
+  "infobar": {
+    "ouverture": "Open from 5:30am",
+    "statutOuvert": "Open",
+    "statutFerme": "Closed",
+    "statutInconnu": "Exact hours to be confirmed"
+  },
+  "lecafe": {
+    "titre": "The café",
+    "p1": "Café Achiri is a neighbourhood café in Hammamet, a few minutes' walk from the medina and the kasbah. It opens at 5:30am, for fishermen, shopkeepers and everyone who starts the day early.",
+    "p2": "The welcome is warm, including for visitors passing through who don't speak French or Arabic. A real Tunisian café, no performance."
+  },
+  "carte": {
+    "titre": "What's on offer",
+    "intro": "A simple selection, like any Tunisian café.",
+    "prixConfirmer": "Price to be confirmed",
+    "prixIndicatif": "≈ 2.2 DT (indicative, to be confirmed)"
+  },
+  "galerie": {
+    "titre": "Gallery"
+  },
+  "avis": {
+    "titre": "Reviews",
+    "sousTitre": "4.3/5 on Google, 12 reviews",
+    "texte": "Warm welcome, cosy atmosphere, fair prices: that's what regulars and passing visitors say.",
+    "ctaVoir": "See Google reviews",
+    "ctaLaisser": "Leave a review"
+  },
+  "trouver": {
+    "titre": "Find us",
+    "adresseLabel": "Address",
+    "repere": "A short walk from Hammamet's medina and kasbah.",
+    "ctaItineraire": "Directions"
+  },
+  "footer": {
+    "titre": "Café Achiri",
+    "adresse": "Nahj el Yassmine, Hammamet 8050, Tunisia",
+    "facebook": "Facebook",
+    "mentions": "Legal notice",
+    "langue": "Language",
+    "sourceDonnees": "Information verified via the café's Google listing and Facebook page."
+  },
+  "mobilebar": {
+    "itineraire": "Directions",
+    "appeler": "Call",
+    "facebook": "Facebook"
+  },
+  "photos": {
+    "hero": "Café Achiri's terrace in the evening, backing onto the walls of Hammamet's kasbah",
+    "exterieurFacade": "Café Achiri's outdoor terrace by day, under the parasols",
+    "interieurSalle": "Café Achiri's indoor room, reed ceiling and traditional bench seating",
+    "galerie01": "Corner of the café with a fresh fruit display",
+    "galerie02": "Tunisian pastries served with tea, on a café table",
+    "galerie03": "Tea being poured on the terrace, late in the day",
+    "detailCafeTurc": "Turkish coffee — photo coming soon"
+  },
+  "mentions": {
+    "titre": "Legal notice",
+    "intro": "This page gathers the site's legal information. Some administrative details have not yet been verified with the business.",
+    "editeurTitre": "Site publisher",
+    "editeurTexte": "Café Achiri — Nahj el Yassmine, Hammamet 8050, Tunisia.",
+    "editeurConfirmer": "Exact legal name, legal structure and tax registration number: to be confirmed.",
+    "hebergeurTitre": "Hosting",
+    "hebergeurTexte": "Site hosted by Netlify, Inc.",
+    "contactTitre": "Contact",
+    "contactConfirmer": "Phone number and email address: to be confirmed.",
+    "donneesTitre": "Personal data",
+    "donneesTexte": "This site sets no tracking cookies and uses no third-party analytics. No personal data is collected."
+  },
+  "retour": "Back to home"
+}

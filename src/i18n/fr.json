@@ -1,0 +1,93 @@
+{
+  "lang": "fr",
+  "meta": {
+    "title": "Café Achiri — Café traditionnel à Hammamet, à deux pas de la médina",
+    "description": "Café Achiri, café traditionnel ouvert dès 5h30 à Hammamet, à quelques minutes de la médina et de la kasbah. Adresse, carte et itinéraire."
+  },
+  "skipLink": "Aller au contenu",
+  "nav": {
+    "leCafe": "Le café",
+    "carte": "La carte",
+    "galerie": "Galerie",
+    "avis": "Avis",
+    "trouver": "Nous trouver"
+  },
+  "hero": {
+    "kicker": "Café traditionnel — Hammamet",
+    "tagline": "Ouvert dès 5h30, à deux pas de la médina.",
+    "ctaItineraire": "Itinéraire",
+    "ctaAppeler": "Appeler",
+    "ctaAppelerIndisponible": "Numéro à confirmer",
+    "ratingText": "sur Google (12 avis)",
+    "repere": "À deux pas de la médina et de la kasbah"
+  },
+  "infobar": {
+    "ouverture": "Ouvert dès 5h30",
+    "statutOuvert": "Ouvert",
+    "statutFerme": "Fermé",
+    "statutInconnu": "Horaires précis à confirmer"
+  },
+  "lecafe": {
+    "titre": "Le café",
+    "p1": "Café Achiri est un café de quartier, à Hammamet, à quelques minutes à pied de la médina et de la kasbah. Il ouvre dès 5h30, pour les pêcheurs, les commerçants et tous ceux qui commencent la journée tôt.",
+    "p2": "L'accueil est chaleureux, y compris pour les visiteurs de passage qui ne parlent ni français ni arabe. Un vrai café tunisien, sans mise en scène."
+  },
+  "carte": {
+    "titre": "Ce qu'on y boit",
+    "intro": "Une sélection simple, comme dans tout café tunisien.",
+    "prixConfirmer": "Prix à confirmer",
+    "prixIndicatif": "≈ 2,2 DT (indicatif, à vérifier)"
+  },
+  "galerie": {
+    "titre": "Galerie"
+  },
+  "avis": {
+    "titre": "Avis",
+    "sousTitre": "4,3/5 sur Google, 12 avis",
+    "texte": "Accueil chaleureux, ambiance cosy, prix raisonnables : c'est ce que disent les habitués et les visiteurs de passage.",
+    "ctaVoir": "Voir les avis Google",
+    "ctaLaisser": "Laisser un avis"
+  },
+  "trouver": {
+    "titre": "Nous trouver",
+    "adresseLabel": "Adresse",
+    "repere": "À quelques minutes à pied de la médina et de la kasbah de Hammamet.",
+    "ctaItineraire": "Itinéraire"
+  },
+  "footer": {
+    "titre": "Café Achiri",
+    "adresse": "Nahj el Yassmine, Hammamet 8050, Tunisie",
+    "facebook": "Facebook",
+    "mentions": "Mentions légales",
+    "langue": "Langue",
+    "sourceDonnees": "Informations vérifiées via la fiche Google et la page Facebook du café."
+  },
+  "mobilebar": {
+    "itineraire": "Itinéraire",
+    "appeler": "Appeler",
+    "facebook": "Facebook"
+  },
+  "photos": {
+    "hero": "Terrasse du café Achiri en soirée, adossée aux remparts de la kasbah de Hammamet",
+    "exterieurFacade": "Terrasse extérieure du café Achiri en journée, sous les parasols",
+    "interieurSalle": "Salle intérieure du café Achiri, plafond en canisses et banquettes traditionnelles",
+    "galerie01": "Coin intérieur du café avec présentoir de fruits frais",
+    "galerie02": "Pâtisseries tunisiennes servies avec un thé, sur une table du café",
+    "galerie03": "Thé versé sur la terrasse, en fin de journée",
+    "detailCafeTurc": "Café turc — photo à venir"
+  },
+  "mentions": {
+    "titre": "Mentions légales",
+    "intro": "Cette page rassemble les informations légales du site. Certaines données administratives n'ont pas encore été vérifiées auprès de l'établissement.",
+    "editeurTitre": "Éditeur du site",
+    "editeurTexte": "Café Achiri — Nahj el Yassmine, Hammamet 8050, Tunisie.",
+    "editeurConfirmer": "Raison sociale exacte, forme juridique et matricule fiscal : à confirmer.",
+    "hebergeurTitre": "Hébergement",
+    "hebergeurTexte": "Site hébergé par Netlify, Inc.",
+    "contactTitre": "Contact",
+    "contactConfirmer": "Numéro de téléphone et adresse e-mail : à confirmer.",
+    "donneesTitre": "Données personnelles",
+    "donneesTexte": "Ce site ne dépose aucun cookie de suivi et n'utilise aucun outil d'analyse tiers. Aucune donnée personnelle n'est collectée."
+  },
+  "retour": "Retour à l'accueil"
+}

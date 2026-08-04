@@ -1,0 +1,40 @@
+---
+import LangSwitch from '../components/LangSwitch.astro';
+import cafe from '../data/cafe.json';
+
+interface Props {
+  t: any;
+  lang: 'fr' | 'en';
+  frPath: string;
+  enPath: string;
+  mentionsPath: string;
+}
+const { t, lang, frPath, enPath, mentionsPath } = Astro.props;
+---
+
+<footer class="border-t border-hammamet/10 bg-hammamet-dark pb-24 pt-10 text-white md:pb-10">
+  <div class="mx-auto max-w-5xl px-4">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <p class="font-display text-xl font-semibold">{t.footer.titre}</p>
+        <p class="mt-1 text-sm text-white/80">{t.footer.adresse}</p>
+        <p class="mt-3 max-w-sm text-xs text-white/60">{t.footer.sourceDonnees}</p>
+      </div>
+
+      <div class="flex flex-col gap-3 text-sm sm:items-end">
+        <a
+          href={cafe.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium text-white hover:text-white/80"
+        >
+          {t.footer.facebook}
+        </a>
+        <a href={mentionsPath} class="text-white/80 hover:text-white">
+          {t.footer.mentions}
+        </a>
+        <LangSwitch lang={lang} frPath={frPath} enPath={enPath} class="[&_a]:text-white [&_a[aria-current]]:bg-white [&_a[aria-current]]:text-hammamet-dark" />
+      </div>
+    </div>
+  </div>
+</footer>

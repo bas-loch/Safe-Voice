@@ -1,0 +1,39 @@
+---
+import cafe from '../data/cafe.json';
+
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section id="trouver" class="mx-auto max-w-5xl px-4 py-14 sm:py-20">
+  <h2 class="text-3xl font-semibold text-hammamet-dark">{t.trouver.titre}</h2>
+
+  <div class="mt-6 grid gap-6 sm:grid-cols-2 sm:items-start">
+    <div>
+      <p class="text-sm font-medium uppercase tracking-wide text-ink/50">{t.trouver.adresseLabel}</p>
+      <p class="mt-1 text-lg text-ink">{t.footer.adresse}</p>
+      <p class="mt-3 text-ink/80">{t.trouver.repere}</p>
+
+      <a
+        href={cafe.googleMapsDirectionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-5 inline-flex min-h-[44px] items-center justify-center rounded-md bg-hammamet px-5 py-2.5 text-sm font-semibold text-white hover:bg-hammamet-light"
+      >
+        {t.trouver.ctaItineraire}
+      </a>
+    </div>
+
+    <div class="overflow-hidden rounded-lg border border-hammamet/10">
+      <iframe
+        src={cafe.googleMapsEmbedSrc}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title={t.trouver.titre}
+        class="h-72 w-full sm:h-full sm:min-h-[280px]"
+      ></iframe>
+    </div>
+  </div>
+</section>

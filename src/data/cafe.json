@@ -1,0 +1,28 @@
+{
+  "_comment": "Données factuelles vérifiées uniquement. Champs null = non vérifiés, voir A-CONFIRMER.md. Modifiez ce fichier pour changer une donnée sans toucher au code.",
+  "name": "Café Achiri",
+  "telephone": null,
+  "address": {
+    "streetAddress": "Nahj el Yassmine",
+    "addressLocality": "Hammamet",
+    "postalCode": "8050",
+    "addressCountry": "TN",
+    "display": "Nahj el Yassmine, Hammamet 8050, Tunisie"
+  },
+  "geo": null,
+  "priceRange": "1-10 DT",
+  "opening": {
+    "opens": "05:30",
+    "closes": null,
+    "daysOfWeek": null
+  },
+  "rating": {
+    "value": 4.3,
+    "count": 12,
+    "best": 5
+  },
+  "facebookUrl": "https://www.facebook.com/cafe.achiri",
+  "googleMapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Achiri%2C%20Nahj%20el%20Yassmine%2C%20Hammamet%208050%2C%20Tunisie",
+  "googleMapsDirectionsUrl": "https://www.google.com/maps/dir/?api=1&destination=Caf%C3%A9%20Achiri%2C%20Nahj%20el%20Yassmine%2C%20Hammamet%208050%2C%20Tunisie",
+  "googleMapsEmbedSrc": "https://www.google.com/maps?q=Caf%C3%A9+Achiri,+Nahj+el+Yassmine,+Hammamet+8050,+Tunisie&output=embed"
+}

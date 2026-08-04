@@ -1,0 +1,51 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  fetchpriority = 'auto',
+} = Astro.props;
+
+const filePath = path.join(process.cwd(), 'public', 'images', src);
+const exists = fs.existsSync(filePath);
+---
+
+{
+  exists ? (
+    <img
+      src={`/images/${src}`}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      fetchpriority={fetchpriority}
+      class={className}
+    />
+  ) : (
+    <div
+      class={`flex items-center justify-center border-2 border-dashed border-hammamet/40 bg-chaux-dark p-4 text-center text-sm text-ink/60 ${className}`}
+      style={`aspect-ratio: ${width} / ${height};`}
+      role="img"
+      aria-label={`Photo manquante : ${src}`}
+    >
+      Photo manquante&nbsp;: <code>{src}</code>
+    </div>
+  )
+}

@@ -1,0 +1,47 @@
+---
+import Photo from '../components/Photo.astro';
+import MosaicDivider from '../components/MosaicDivider.astro';
+import carte from '../data/carte.json';
+
+interface Props {
+  t: any;
+  lang: 'fr' | 'en';
+}
+const { t, lang } = Astro.props;
+---
+
+<section id="carte" class="bg-white py-14 sm:py-20">
+  <MosaicDivider class="mb-14 sm:mb-20" />
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 class="text-3xl font-semibold text-hammamet-dark">{t.carte.titre}</h2>
+    <p class="mt-2 text-ink/70">{t.carte.intro}</p>
+
+    <ul class="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+      {carte.items.map((item) => (
+        <li class="flex items-baseline justify-between gap-4 border-b border-hammamet/10 pb-3">
+          <span class="text-base font-medium text-ink">{lang === 'fr' ? item.fr : item.en}</span>
+          <span class="whitespace-nowrap text-sm text-ink/60">
+            {item.price ?? (item.id === 'cafe-direct' ? t.carte.prixIndicatif : t.carte.prixConfirmer)}
+          </span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-10 grid grid-cols-2 gap-4 sm:max-w-md">
+      <Photo
+        src="galerie-03.webp"
+        alt={t.photos.galerie03}
+        width={560}
+        height={747}
+        class="w-full rounded-lg object-cover"
+      />
+      <Photo
+        src="detail-cafe-turc.webp"
+        alt={t.photos.detailCafeTurc}
+        width={560}
+        height={747}
+        class="w-full rounded-lg"
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import InfoBar from '../components/InfoBar.astro';
+import MobileBar from '../components/MobileBar.astro';
+import Hero from '../sections/Hero.astro';
+import LeCafe from '../sections/LeCafe.astro';
+import Carte from '../sections/Carte.astro';
+import Galerie from '../sections/Galerie.astro';
+import Avis from '../sections/Avis.astro';
+import NousTrouver from '../sections/NousTrouver.astro';
+import Footer from '../sections/Footer.astro';
+import t from '../i18n/fr.json';
+
+const lang = 'fr';
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.meta.title}
+  description={t.meta.description}
+  canonicalPath="/"
+  alternateFrPath="/"
+  alternateEnPath="/en/"
+  isHome
+>
+  <a href="#contenu" class="skip-link">{t.skipLink}</a>
+  <Header lang={lang} t={t} frPath="/" enPath="/en/" homePath="/" />
+  <InfoBar t={t} />
+  <main id="contenu">
+    <Hero t={t} />
+    <LeCafe t={t} />
+    <Carte t={t} lang={lang} />
+    <Galerie t={t} lang={lang} />
+    <Avis t={t} />
+    <NousTrouver t={t} />
+  </main>
+  <Footer t={t} lang={lang} frPath="/" enPath="/en/" mentionsPath="/mentions-legales" />
+  <MobileBar t={t} lang={lang} />
+</BaseLayout>

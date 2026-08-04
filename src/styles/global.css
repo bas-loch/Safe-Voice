@@ -1,0 +1,52 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/work-sans';
+
+@theme {
+  --color-chaux: #F7F4EC;
+  --color-chaux-dark: #EFE9DA;
+  --color-hammamet: #1B5E86;
+  --color-hammamet-dark: #123F5C;
+  --color-hammamet-light: #3E82AE;
+  --color-ocre: #C9873F;
+  --color-ocre-dark: #A66B2C;
+  --color-ink: #26221C;
+
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-sans: 'Work Sans Variable', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-chaux text-ink font-sans antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+
+  a, button {
+    @apply transition-colors;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ocre);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-hammamet-light);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-hammamet focus:px-4 focus:py-2 focus:text-white;
+  }
+}

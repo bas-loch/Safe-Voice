@@ -1,0 +1,26 @@
+---
+// Le seul motif décoratif du site, inspiré du carreau de zellige tunisien.
+// Utilisé une seule fois par emplacement, jamais en fond répété sur une section entière.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`w-full overflow-hidden ${className}`} role="presentation" aria-hidden="true">
+  <svg
+    viewBox="0 0 160 20"
+    preserveAspectRatio="xMidYMid meet"
+    class="h-5 w-full"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <pattern id="achiri-zellige" width="20" height="20" patternUnits="userSpaceOnUse">
+        <rect width="20" height="20" fill="none" />
+        <path d="M10 2 L18 10 L10 18 L2 10 Z" fill="none" stroke="#1B5E86" stroke-width="1" opacity="0.5" />
+        <circle cx="10" cy="10" r="2" fill="#C9873F" opacity="0.7" />
+      </pattern>
+    </defs>
+    <rect width="160" height="20" fill="url(#achiri-zellige)" />
+  </svg>
+</div>

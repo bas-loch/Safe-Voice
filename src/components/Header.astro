@@ -1,0 +1,64 @@
+---
+import LangSwitch from './LangSwitch.astro';
+
+interface Props {
+  lang: 'fr' | 'en';
+  t: any;
+  frPath: string;
+  enPath: string;
+  homePath: string;
+}
+const { lang, t, frPath, enPath, homePath } = Astro.props;
+
+const navItems = [
+  { href: '#le-cafe', label: t.nav.leCafe },
+  { href: '#carte', label: t.nav.carte },
+  { href: '#galerie', label: t.nav.galerie },
+  { href: '#avis', label: t.nav.avis },
+  { href: '#trouver', label: t.nav.trouver },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-hammamet/10 bg-chaux/95 backdrop-blur">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+    <a href={homePath} class="font-display text-xl font-semibold text-hammamet-dark">
+      {t.footer.titre}
+    </a>
+
+    <input type="checkbox" id="menu-toggle" class="peer sr-only" />
+
+    <nav aria-label="Navigation principale" class="hidden items-center gap-6 md:flex">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-sm font-medium text-ink hover:text-hammamet">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden md:block">
+      <LangSwitch lang={lang} frPath={frPath} enPath={enPath} />
+    </div>
+
+    <label
+      for="menu-toggle"
+      class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-md text-hammamet-dark md:hidden"
+      aria-label={lang === 'fr' ? 'Ouvrir le menu' : 'Open menu'}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </label>
+
+    <nav
+      aria-label="Navigation mobile"
+      class="fixed inset-x-0 top-[57px] hidden flex-col gap-1 border-b border-hammamet/10 bg-chaux px-4 py-4 peer-checked:flex md:hidden"
+    >
+      {navItems.map((item) => (
+        <a href={item.href} class="rounded-md px-2 py-3 text-base font-medium text-ink hover:bg-hammamet/10">
+          {item.label}
+        </a>
+      ))}
+      <LangSwitch lang={lang} frPath={frPath} enPath={enPath} class="mt-2" />
+    </nav>
+  </div>
+</header>

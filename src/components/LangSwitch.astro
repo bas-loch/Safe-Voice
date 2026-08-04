@@ -1,0 +1,26 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+  frPath: string;
+  enPath: string;
+  class?: string;
+}
+const { lang, frPath, enPath, class: className = '' } = Astro.props;
+---
+
+<div class={`flex items-center gap-1 text-sm font-medium ${className}`}>
+  <a
+    href={frPath}
+    aria-current={lang === 'fr' ? 'page' : undefined}
+    class={`rounded px-2 py-1 ${lang === 'fr' ? 'bg-hammamet text-white' : 'text-hammamet hover:bg-hammamet/10'}`}
+  >
+    FR
+  </a>
+  <a
+    href={enPath}
+    aria-current={lang === 'en' ? 'page' : undefined}
+    class={`rounded px-2 py-1 ${lang === 'en' ? 'bg-hammamet text-white' : 'text-hammamet hover:bg-hammamet/10'}`}
+  >
+    EN
+  </a>
+</div>

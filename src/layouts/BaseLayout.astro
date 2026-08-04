@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import cafe from '../data/cafe.json';
+
+interface Props {
+  lang: 'fr' | 'en';
+  title: string;
+  description: string;
+  canonicalPath: string;
+  alternateFrPath: string;
+  alternateEnPath: string;
+  isHome?: boolean;
+}
+
+const {
+  lang,
+  title,
+  description,
+  canonicalPath,
+  alternateFrPath,
+  alternateEnPath,
+  isHome = false,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const ogImageUrl = `${siteUrl}/images/hero-terrasse.webp`;
+
+// JSON-LD : uniquement des données réelles et vérifiées (voir A-CONFIRMER.md pour le reste).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CafeOrCoffeeShop',
+  name: cafe.name,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: cafe.address.streetAddress,
+    addressLocality: cafe.address.addressLocality,
+    postalCode: cafe.address.postalCode,
+    addressCountry: cafe.address.addressCountry,
+  },
+  priceRange: cafe.priceRange,
+  // Heure de fermeture et jours d'ouverture : [À CONFIRMER], volontairement omis plutôt qu'inventés.
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    opens: cafe.opening.opens,
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: cafe.rating.value,
+    reviewCount: cafe.rating.count,
+    bestRating: cafe.rating.best,
+  },
+  sameAs: [cafe.facebookUrl, cafe.googleMapsSearchUrl],
+  url: siteUrl,
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="fr" href={`${siteUrl}${alternateFrPath}`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${alternateEnPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alternateFrPath}`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_TN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {
+      isHome && (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    }
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

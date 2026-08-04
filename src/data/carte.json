@@ -1,0 +1,41 @@
+{
+  "note": "Prix en dinars tunisiens (DT). Un avis client mentionne environ 2,2 DT pour le café : indicatif, à vérifier sur place. Modifiez ce fichier pour changer un prix ou un intitulé, sans toucher au code.",
+  "items": [
+    {
+      "id": "cafe-direct",
+      "fr": "Café direct",
+      "en": "Black coffee",
+      "price": null
+    },
+    {
+      "id": "cafe-turc",
+      "fr": "Café turc",
+      "en": "Turkish coffee",
+      "price": null
+    },
+    {
+      "id": "capucin",
+      "fr": "Capucin",
+      "en": "Capucin (coffee with a little milk)",
+      "price": null
+    },
+    {
+      "id": "express",
+      "fr": "Express",
+      "en": "Espresso",
+      "price": null
+    },
+    {
+      "id": "the-pignons",
+      "fr": "Thé aux pignons",
+      "en": "Mint tea with pine nuts",
+      "price": null
+    },
+    {
+      "id": "jus",
+      "fr": "Jus",
+      "en": "Fresh juice",
+      "price": null
+    }
+  ]
+}

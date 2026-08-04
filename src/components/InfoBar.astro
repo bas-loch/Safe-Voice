@@ -1,0 +1,31 @@
+---
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<div class="sticky top-[57px] z-30 border-b border-hammamet/10 bg-hammamet-dark text-white md:static">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2 text-xs sm:text-sm">
+    <span class="flex items-center gap-1.5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="shrink-0">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+        <path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+      {t.infobar.ouverture}
+    </span>
+    <span class="flex items-center gap-1.5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="shrink-0">
+        <path
+          d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        />
+        <circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+      {t.footer.adresse}
+    </span>
+    <span class="text-white/70">{t.infobar.statutInconnu}</span>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../sections/Footer.astro';
+import t from '../i18n/fr.json';
+
+const lang = 'fr';
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t.mentions.titre} — ${t.footer.titre}`}
+  description={t.mentions.intro}
+  canonicalPath="/mentions-legales"
+  alternateFrPath="/mentions-legales"
+  alternateEnPath="/en/mentions-legales"
+>
+  <a href="#contenu" class="skip-link">{t.skipLink}</a>
+  <Header lang={lang} t={t} frPath="/mentions-legales" enPath="/en/mentions-legales" homePath="/" />
+  <main id="contenu" class="mx-auto max-w-2xl px-4 py-14 sm:py-20">
+    <h1 class="text-3xl font-semibold text-hammamet-dark">{t.mentions.titre}</h1>
+    <p class="mt-4 text-ink/85">{t.mentions.intro}</p>
+
+    <h2 class="mt-8 text-xl font-semibold text-hammamet-dark">{t.mentions.editeurTitre}</h2>
+    <p class="mt-2 text-ink/85">{t.mentions.editeurTexte}</p>
+    <p class="mt-1 text-sm italic text-ink/60">{t.mentions.editeurConfirmer}</p>
+
+    <h2 class="mt-8 text-xl font-semibold text-hammamet-dark">{t.mentions.hebergeurTitre}</h2>
+    <p class="mt-2 text-ink/85">{t.mentions.hebergeurTexte}</p>
+
+    <h2 class="mt-8 text-xl font-semibold text-hammamet-dark">{t.mentions.contactTitre}</h2>
+    <p class="mt-2 text-sm italic text-ink/60">{t.mentions.contactConfirmer}</p>
+
+    <h2 class="mt-8 text-xl font-semibold text-hammamet-dark">{t.mentions.donneesTitre}</h2>
+    <p class="mt-2 text-ink/85">{t.mentions.donneesTexte}</p>
+
+    <a href="/" class="mt-10 inline-block font-medium text-hammamet hover:underline">
+      {t.retour}
+    </a>
+  </main>
+  <Footer t={t} lang={lang} frPath="/mentions-legales" enPath="/en/mentions-legales" mentionsPath="/mentions-legales" />
+</BaseLayout>

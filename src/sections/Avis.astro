@@ -1,0 +1,52 @@
+---
+import MosaicDivider from '../components/MosaicDivider.astro';
+import cafe from '../data/cafe.json';
+
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section id="avis" class="bg-white py-14 sm:py-20">
+  <MosaicDivider class="mb-14 sm:mb-20" />
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 class="text-3xl font-semibold text-hammamet-dark">{t.avis.titre}</h2>
+
+    <div class="mt-4 flex items-center gap-2">
+      <div class="flex" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <svg width="22" height="22" viewBox="0 0 24 24" class={i < 4 ? '' : 'opacity-40'}>
+            <path
+              d="M12 2.5l2.7 6 6.6.6-5 4.4 1.5 6.5-5.8-3.5-5.8 3.5 1.5-6.5-5-4.4 6.6-.6Z"
+              fill="#C9873F"
+              stroke="#C9873F"
+            />
+          </svg>
+        ))}
+      </div>
+      <p class="font-medium text-ink">{t.avis.sousTitre}</p>
+    </div>
+
+    <p class="mt-4 max-w-xl text-ink/85">{t.avis.texte}</p>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href={cafe.googleMapsSearchUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-hammamet px-5 py-2.5 text-sm font-semibold text-white hover:bg-hammamet-light"
+      >
+        {t.avis.ctaVoir}
+      </a>
+      <a
+        href={cafe.googleMapsSearchUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-[44px] items-center justify-center rounded-md border border-hammamet/30 px-5 py-2.5 text-sm font-medium text-hammamet-dark hover:bg-hammamet/5"
+      >
+        {t.avis.ctaLaisser}
+      </a>
+    </div>
+  </div>
+</section>
