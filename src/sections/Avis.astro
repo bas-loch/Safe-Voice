@@ -31,20 +31,10 @@ const { t } = Astro.props;
     <p class="mt-4 max-w-xl text-ink/85">{t.avis.texte}</p>
 
     <div class="mt-6 flex flex-wrap gap-3">
-      <a
-        href={cafe.googleMapsSearchUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-hammamet px-5 py-2.5 text-sm font-semibold text-white hover:bg-hammamet-light"
-      >
+      <a href={cafe.googleMapsSearchUrl} target="_blank" rel="noopener noreferrer" class="btn-fill">
         {t.avis.ctaVoir}
       </a>
-      <a
-        href={cafe.googleMapsSearchUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex min-h-[44px] items-center justify-center rounded-md border border-hammamet/30 px-5 py-2.5 text-sm font-medium text-hammamet-dark hover:bg-hammamet/5"
-      >
+      <a href={cafe.googleMapsSearchUrl} target="_blank" rel="noopener noreferrer" class="btn-outline">
         {t.avis.ctaLaisser}
       </a>
     </div>

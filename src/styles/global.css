@@ -47,6 +47,27 @@
 
 @layer utilities {
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-hammamet focus:px-4 focus:py-2 focus:text-white;
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-hammamet focus:px-4 focus:py-2 focus:text-white;
+  }
+}
+
+@layer components {
+  /* Boutons "enseigne peinte" : francs, plats, sans coins arrondis ni ombre décorative. */
+  .btn-fill {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 border-2 border-hammamet-dark bg-hammamet px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-hammamet-dark;
+  }
+  .btn-outline-light {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 border-2 border-white/70 bg-transparent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:border-white hover:bg-white/10;
+  }
+  .btn-outline {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 border-2 border-hammamet-dark/40 bg-transparent px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-hammamet-dark hover:border-hammamet-dark hover:bg-hammamet-dark/5;
+  }
+  .btn-disabled {
+    @apply inline-flex min-h-[44px] cursor-not-allowed items-center justify-center gap-2 border-2 border-white/30 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white/60;
+  }
+
+  /* Tirage photo épinglé : cadre blanc irrégulier, pas de coin arrondi ni d'ombre douce générique. */
+  .print-frame {
+    @apply border-8 border-white bg-white shadow-[0_6px_16px_-4px_rgba(38,34,28,0.35)];
   }
 }

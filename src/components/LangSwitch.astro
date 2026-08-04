@@ -3,23 +3,29 @@ interface Props {
   lang: 'fr' | 'en';
   frPath: string;
   enPath: string;
+  variant?: 'dark' | 'light';
   class?: string;
 }
-const { lang, frPath, enPath, class: className = '' } = Astro.props;
+const { lang, frPath, enPath, variant = 'dark', class: className = '' } = Astro.props;
+
+const isLight = variant === 'light';
+const border = isLight ? 'border-white/70' : 'border-hammamet-dark';
+const idle = isLight ? 'text-white hover:bg-white/10' : 'text-hammamet-dark hover:bg-hammamet-dark/10';
+const active = isLight ? 'bg-white text-hammamet-dark' : 'bg-hammamet-dark text-white';
 ---
 
-<div class={`flex items-center gap-1 text-sm font-medium ${className}`}>
+<div class={`flex items-center border-2 ${border} text-xs font-bold ${className}`}>
   <a
     href={frPath}
     aria-current={lang === 'fr' ? 'page' : undefined}
-    class={`rounded px-2 py-1 ${lang === 'fr' ? 'bg-hammamet text-white' : 'text-hammamet hover:bg-hammamet/10'}`}
+    class={`px-2.5 py-1 ${lang === 'fr' ? active : idle}`}
   >
     FR
   </a>
   <a
     href={enPath}
     aria-current={lang === 'en' ? 'page' : undefined}
-    class={`rounded px-2 py-1 ${lang === 'en' ? 'bg-hammamet text-white' : 'text-hammamet hover:bg-hammamet/10'}`}
+    class={`border-l-2 ${border} px-2.5 py-1 ${lang === 'en' ? active : idle}`}
   >
     EN
   </a>

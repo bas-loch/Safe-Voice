@@ -33,7 +33,7 @@ const { t, lang, frPath, enPath, mentionsPath } = Astro.props;
         <a href={mentionsPath} class="text-white/80 hover:text-white">
           {t.footer.mentions}
         </a>
-        <LangSwitch lang={lang} frPath={frPath} enPath={enPath} class="[&_a]:text-white [&_a[aria-current]]:bg-white [&_a[aria-current]]:text-hammamet-dark" />
+        <LangSwitch lang={lang} frPath={frPath} enPath={enPath} variant="light" />
       </div>
     </div>
   </div>

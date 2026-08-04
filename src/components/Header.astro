@@ -19,17 +19,20 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-40 border-b border-hammamet/10 bg-chaux/95 backdrop-blur">
+<header class="sticky top-0 z-40 border-b-4 border-hammamet bg-chaux">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-    <a href={homePath} class="font-display text-xl font-semibold text-hammamet-dark">
+    <a href={homePath} class="font-display text-2xl font-semibold text-hammamet-dark">
       {t.footer.titre}
     </a>
 
     <input type="checkbox" id="menu-toggle" class="peer sr-only" />
 
-    <nav aria-label="Navigation principale" class="hidden items-center gap-6 md:flex">
+    <nav aria-label="Navigation principale" class="hidden items-center gap-7 md:flex">
       {navItems.map((item) => (
-        <a href={item.href} class="text-sm font-medium text-ink hover:text-hammamet">
+        <a
+          href={item.href}
+          class="text-xs font-semibold uppercase tracking-wider text-ink hover:text-hammamet"
+        >
           {item.label}
         </a>
       ))}
@@ -41,7 +44,7 @@ const navItems = [
 
     <label
       for="menu-toggle"
-      class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-md text-hammamet-dark md:hidden"
+      class="flex h-11 w-11 cursor-pointer items-center justify-center text-hammamet-dark md:hidden"
       aria-label={lang === 'fr' ? 'Ouvrir le menu' : 'Open menu'}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -51,10 +54,13 @@ const navItems = [
 
     <nav
       aria-label="Navigation mobile"
-      class="fixed inset-x-0 top-[57px] hidden flex-col gap-1 border-b border-hammamet/10 bg-chaux px-4 py-4 peer-checked:flex md:hidden"
+      class="fixed inset-x-0 top-[72px] hidden flex-col gap-1 border-b-4 border-hammamet bg-chaux px-4 py-4 peer-checked:flex md:hidden"
     >
       {navItems.map((item) => (
-        <a href={item.href} class="rounded-md px-2 py-3 text-base font-medium text-ink hover:bg-hammamet/10">
+        <a
+          href={item.href}
+          class="px-2 py-3 text-sm font-semibold uppercase tracking-wider text-ink hover:text-hammamet"
+        >
           {item.label}
         </a>
       ))}
